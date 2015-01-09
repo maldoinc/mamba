@@ -31,17 +31,16 @@ tokens = [
 
 
 t_COMMA = ','
-t_PLUS = R'\+'
-t_EXP = R'\*\*'
+t_PLUS = r'\+'
+t_EXP = r'\*\*'
 t_MINUS = '-'
-t_MUL = R'\*'
-t_DIV = R'/'
+t_MUL = r'\*'
+t_DIV = r'/'
 t_STMT_END = ';'
 t_EQUALS = '='
-t_NUM_FLOAT = R'\d*\.\d+'
-t_ignore_WS = R'\s+'
-t_LPAREN = '\('
-t_RPAREN = '\)'
+t_ignore_WS = r'\s+'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
 t_LBRACK = '{'
 t_RBRACK = '}'
 
@@ -57,6 +56,12 @@ def t_IDENTIFIER(t):
 def t_NUM_INT(t):
     r'-?\d+'
     t.value = int(t.value)
+    return t
+
+
+def t_NUM_FLOAT(t):
+    r'\d*\.\d+'
+    t.value = float(t.value)
     return t
 
 
