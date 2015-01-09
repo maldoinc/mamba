@@ -1,11 +1,26 @@
+class InstructionList:
+    def __init__(self, children=None):
+        if children is None:
+            children = []
+        self.children = children
+
+    def eval(self):
+        for n in self.children:
+            res = n.eval()
+
+            if res is not None:
+                return res
+
+
 class SymbolTable:
     __table = {}
 
-    def getsym(self, sym: str, scope: str='global'):
+    def getsym(self, sym, scope='global'):
         return self.__table[scope][sym]
 
-    def setsym(self, sym: str, val, scope: str='global'):
+    def setsym(self, sym, val, scope='global'):
         self.__table[scope][sym] = val
+
 
 symbols = SymbolTable()
 
@@ -15,8 +30,16 @@ class BaseExpression:
         raise NotImplementedError()
 
 
+class Numeric(BaseExpression):
+    def __init__(self, value):
+        self.value = value
+
+    def eval(self, scope):
+        return self.value
+
+
 class Identifier(BaseExpression):
-    def __init__(self, name: str):
+    def __init__(self, name):
         self.name = name
 
     def assign(self, val, scope):
@@ -27,7 +50,7 @@ class Identifier(BaseExpression):
 
 
 class Assignment(BaseExpression):
-    def __init__(self, identifier: Identifier, val: BaseExpression):
+    def __init__(self, identifier, val):
         self.identifier = identifier
         self.val = val
 
