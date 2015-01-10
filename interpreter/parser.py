@@ -144,6 +144,14 @@ def p_expression(p):
     p[0] = p[1]
 
 
+def p_for_loop(p):
+    '''
+    statement : FOR identifier IN NUM_INT ARROW_LTR NUM_INT LBRACK statement_list RBRACK
+    statement : FOR identifier IN NUM_INT ARROW_RTL NUM_INT LBRACK statement_list RBRACK
+    '''
+    p[0] = ast.For(p[2], ast.Primitive(p[4]), ast.Primitive(p[6]), p[5] == '->', p[8])
+
+
 def p_error(p):
     print("Syntax error in input!")
     print(p)

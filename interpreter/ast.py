@@ -125,6 +125,21 @@ class If(BaseExpression):
             else:
                 self.elsepart.eval()
 
+
+class For(BaseExpression):
+    def __init__(self, variable: Identifier, start: Primitive, end: Primitive, asc: bool, body: InstructionList):
+        self.variable = variable
+        self.start = start
+        self.end = end
+        self.asc = asc
+        self.body = body
+
+    def eval(self):
+        for i in range(self.start.eval(), 1 + self.end.eval(), 1 if self.asc else -1):
+            self.variable.assign(i)
+            self.body.eval()
+
+
 class PrintStatement(BaseExpression):
     def __init__(self, expr: BaseExpression):
         self.expr = expr

@@ -3,9 +3,15 @@ import ply.lex as lex
 reserved = {
     'if': 'IF',
     'else': 'ELSE',
+
+    'for': 'FOR',
+    'in': 'IN',
+
     'fn': 'FUNCTION',
     'ret': 'RETURN',
+
     'say': 'PRINT',
+
     'and': 'AND',
     'or': 'OR',
 }
@@ -40,6 +46,9 @@ tokens = [
     'LT',
     'LTE',
 
+    'ARROW_LTR',
+    'ARROW_RTL'
+
 ] + list(reserved.values())
 
 
@@ -62,6 +71,8 @@ t_GT = '>'
 t_GTE = '>='
 t_LT = '<'
 t_LTE = '<='
+t_ARROW_LTR = '->'
+t_ARROW_RTL = '<-'
 
 
 def t_TRUE(t):
