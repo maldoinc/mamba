@@ -134,6 +134,9 @@ class For(BaseExpression):
         self.asc = asc
         self.body = body
 
+    def __repr__(self):
+        return '<For {0} {1} {2} >'.format(self.start, '->' if self.asc else '<-', self.end)
+
     def eval(self):
         for i in range(self.start.eval(), 1 + self.end.eval(), 1 if self.asc else -1):
             self.variable.assign(i)
