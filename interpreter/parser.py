@@ -110,6 +110,13 @@ def p_ifstatement_else_if(p):
     p[0] = ast.If(p[2], p[4], p[7])
 
 
+def p_print_statement(p):
+    '''
+    statement : PRINT expression STMT_END
+    '''
+    p[0] = ast.PrintStatement(p[2])
+
+
 def p_arithmetic_op(p):
     '''
     expression : expression PLUS expression

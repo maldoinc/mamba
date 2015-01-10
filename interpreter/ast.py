@@ -124,3 +124,10 @@ class If(BaseExpression):
                 self.elsepart.eval(scope)
             else:
                 self.elsepart.eval()
+
+class PrintStatement(BaseExpression):
+    def __init__(self, expr: BaseExpression):
+        self.expr = expr
+
+    def eval(self, scope):
+        print(self.expr.eval(scope))
