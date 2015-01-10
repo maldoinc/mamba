@@ -1,5 +1,6 @@
 import interpreter.parser as p
 import interpreter.ast
+import pprint
 
 script = '''
     a = 5;
@@ -22,5 +23,6 @@ ast = p.parser.parse(script)
 for node in ast.children:
     node.eval('dummy')
 
-print(ast.children)
-print(interpreter.ast.symbols.table())
+pp = pprint.PrettyPrinter()
+pp.pprint(ast.children)
+pp.pprint(interpreter.ast.symbols.table())
