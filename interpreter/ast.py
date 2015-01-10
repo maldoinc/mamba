@@ -52,7 +52,7 @@ class Identifier(BaseExpression):
         symbols.setsym(self.name, val, scope)
 
     def eval(self, scope):
-        pass
+        return symbols.getsym(self.name, scope)
 
 
 class Assignment(BaseExpression):
@@ -77,7 +77,10 @@ class BinaryOperation(BaseExpression):
         '<': operator.lt,
         '<=': operator.le,
         '==': operator.eq,
-        '!=': operator.ne
+        '!=': operator.ne,
+
+        'and': operator.and_,
+        'or': operator.or_,
     }
 
     def __init__(self, left, right, op):

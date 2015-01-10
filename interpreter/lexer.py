@@ -4,7 +4,9 @@ reserved = {
     'if': 'IF',
     'fn': 'FUNCTION',
     'ret': 'RETURN',
-    'say': 'PRINT'
+    'say': 'PRINT',
+    'and': 'AND',
+    'or': 'OR',
 }
 
 tokens = [
@@ -35,7 +37,7 @@ tokens = [
     'GT',
     'GTE',
     'LT',
-    'LTE'
+    'LTE',
 
 ] + list(reserved.values())
 
@@ -67,7 +69,7 @@ def t_TRUE(t):
     return t
 
 def t_FALSE(t):
-    'true'
+    'false'
     t.value = False
     return t
 

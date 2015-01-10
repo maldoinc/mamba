@@ -56,6 +56,8 @@ def p_boolean_operators(p):
             | expression GTE expression
             | expression LT expression
             | expression LTE expression
+            | expression AND expression
+            | expression OR expression
     '''
     p[0] = ast.BinaryOperation(p[1], p[3], p[2]).eval('')
 
@@ -78,7 +80,7 @@ def p_assignable(p):
 
 def p_assign(p):
     '''
-    expression : identifier EQUALS assignable STMT_END
+    expression : identifier EQUALS expression STMT_END
     '''
     p[0] = ast.Assignment(p[1], p[3])
 
@@ -98,6 +100,7 @@ def p_expression(p):
     '''
     expression : number
                | STRING
+               | identifier
     '''
     p[0] = p[1]
 
