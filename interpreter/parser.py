@@ -39,6 +39,13 @@ def p_identifier(p):
     p[0] = ast.Identifier(p[1])
 
 
+def p_exit_stmt(p):
+    '''
+    statement : EXIT STMT_END
+    '''
+    p[0] = ast.ExitStatement()
+
+
 def p_primitive(p):
     '''
     primitive : NUM_INT
@@ -89,6 +96,17 @@ def p_assignable(p):
     p[0] = p[1]
 
 
+def p_comma_separated_expr(p):
+    '''
+    arguments : arguments COMMA expression
+              | expression
+    '''
+    if len(p) == 2:
+        p[0] = ast.InstructionList([p[1]])
+    else:
+        p[1].children.append(p[3])
+        p[0] = p[1]
+
 def p_assign(p):
     '''
     expression : identifier EQUALS assignable STMT_END
@@ -119,7 +137,7 @@ def p_ifstatement_else_if(p):
 
 def p_print_statement(p):
     '''
-    statement : PRINT expression STMT_END
+    statement : PRINT arguments STMT_END
     '''
     p[0] = ast.PrintStatement(p[2])
 

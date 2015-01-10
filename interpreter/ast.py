@@ -11,12 +11,19 @@ class InstructionList:
         return '<Instruction list: {0}>'.format(self.children)
 
     def eval(self):
+        ret = []
         for n in self.children:
+            if isinstance(n, ExitStatement):
+                return n
+
             res = n.eval()
 
-            if res is not None:
+            if isinstance(res, ExitStatement):
                 return res
+            elif res is not None:
+                ret.append(res)
 
+        return ret
 
 class SymbolTable:
     __table = {}
@@ -119,12 +126,12 @@ class If(BaseExpression):
 
     def eval(self):
         if self.condition.eval():
-            self.truepart.eval()
+            return self.truepart.eval()
         elif self.elsepart is not None:
             if isinstance(self.elsepart, BaseExpression):
-                self.elsepart.eval()
+                return self.elsepart.eval()
             else:
-                self.elsepart.eval()
+                return self.elsepart.eval()
 
 
 class For(BaseExpression):
@@ -141,12 +148,21 @@ class For(BaseExpression):
     def eval(self):
         for i in range(self.start.eval(), 1 + self.end.eval(), 1 if self.asc else -1):
             self.variable.assign(i)
-            self.body.eval()
+            if isinstance(self.body.eval(), ExitStatement):
+                break
+
+
+class ExitStatement(BaseExpression):
+    def eval(self):
+        pass
 
 
 class PrintStatement(BaseExpression):
-    def __init__(self, expr: BaseExpression):
-        self.expr = expr
+    def __init__(self, items: InstructionList):
+        self.items = items
+
+    def __repr__(self):
+        return '<Print: {0}>'.format(self.items)
 
     def eval(self):
-        print(self.expr.eval())
+        print(*self.items.eval(), end='', sep='')
