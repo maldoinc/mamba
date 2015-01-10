@@ -94,18 +94,15 @@ def t_IDENTIFIER(t):
 
     return t
 
-
-def t_NUM_INT(t):
-    r'-?\d+'
-    t.value = int(t.value)
-    return t
-
-
 def t_NUM_FLOAT(t):
     r'\d*\.\d+'
     t.value = float(t.value)
     return t
 
+def t_NUM_INT(t):
+    r'-?\d+'
+    t.value = int(t.value)
+    return t
 
 def t_STRING(t):
     r'"(?:\\"|.)*?"'
