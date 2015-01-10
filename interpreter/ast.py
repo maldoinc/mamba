@@ -12,7 +12,7 @@ class InstructionList:
 
     def eval(self):
         for n in self.children:
-            res = n.eval('')
+            res = n.eval()
 
             if res is not None:
                 return res
@@ -24,10 +24,10 @@ class SymbolTable:
     def table(self):
         return self.__table
 
-    def getsym(self, sym, scope):
+    def getsym(self, sym):
         return self.__table[sym]
 
-    def setsym(self, sym, val, scope):
+    def setsym(self, sym, val):
         self.__table[sym] = val
 
 
@@ -35,7 +35,7 @@ symbols = SymbolTable()
 
 
 class BaseExpression:
-    def eval(self, scope):
+    def eval(self):
         raise NotImplementedError()
 
 
@@ -46,7 +46,7 @@ class Primitive(BaseExpression):
     def __repr__(self):
         return '<Primitive: "{0}"({1})>'.format(self.value, self.value.__class__)
 
-    def eval(self, scope):
+    def eval(self):
         return self.value
 
 
@@ -57,11 +57,11 @@ class Identifier(BaseExpression):
     def __repr__(self):
         return '<Identifier: {0}>'.format(self.name)
 
-    def assign(self, val, scope):
-        symbols.setsym(self.name, val, scope)
+    def assign(self, val):
+        symbols.setsym(self.name, val)
 
-    def eval(self, scope):
-        return symbols.getsym(self.name, scope)
+    def eval(self):
+        return symbols.getsym(self.name)
 
 
 class Assignment(BaseExpression):
@@ -72,8 +72,8 @@ class Assignment(BaseExpression):
     def __repr__(self):
         return '<Assignment: sym = {0}; val = {1}>'.format(self.identifier, self.val)
 
-    def eval(self, scope):
-        self.identifier.assign(self.val.eval(scope), scope)
+    def eval(self):
+        self.identifier.assign(self.val.eval())
 
 
 class BinaryOperation(BaseExpression):
@@ -103,8 +103,8 @@ class BinaryOperation(BaseExpression):
         self.right = right
         self.op = op
 
-    def eval(self, scope):
-        return self.__operations[self.op](self.left.eval(scope), self.right.eval(scope))
+    def eval(self):
+        return self.__operations[self.op](self.left.eval(), self.right.eval())
 
 
 class If(BaseExpression):
@@ -116,12 +116,12 @@ class If(BaseExpression):
     def __repr__(self):
         return '<If condition={0}; then={1}>'.format(self.condition, self.truepart)
 
-    def eval(self, scope):
-        if self.condition.eval(scope):
+    def eval(self):
+        if self.condition.eval():
             self.truepart.eval()
         elif self.elsepart is not None:
             if isinstance(self.elsepart, BaseExpression):
-                self.elsepart.eval(scope)
+                self.elsepart.eval()
             else:
                 self.elsepart.eval()
 
@@ -129,5 +129,5 @@ class PrintStatement(BaseExpression):
     def __init__(self, expr: BaseExpression):
         self.expr = expr
 
-    def eval(self, scope):
-        print(self.expr.eval(scope))
+    def eval(self):
+        print(self.expr.eval())
