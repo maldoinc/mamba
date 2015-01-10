@@ -27,6 +27,16 @@ tokens = [
     'MUL',
     'DIV',
 
+    'TRUE',
+    'FALSE',
+
+    'EQ',
+    'NEQ',
+    'GT',
+    'GTE',
+    'LT',
+    'LTE'
+
 ] + list(reserved.values())
 
 
@@ -43,7 +53,23 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACK = '{'
 t_RBRACK = '}'
+t_EQ = '=='
+t_NEQ = '!='
+t_GT = '>'
+t_GTE = '>='
+t_LT = '<'
+t_LTE = '<='
 
+
+def t_TRUE(t):
+    'true'
+    t.value = True
+    return t
+
+def t_FALSE(t):
+    'true'
+    t.value = False
+    return t
 
 def t_IDENTIFIER(t):
     r'[\$_a-zA-Z]\w*'

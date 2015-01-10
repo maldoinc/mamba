@@ -43,8 +43,29 @@ def p_number(p):
     number : NUM_INT
            | NUM_FLOAT
            | STRING
+           | boolean
     '''
     p[0] = ast.Primitive(p[1])
+
+
+def p_boolean_operators(p):
+    '''
+    boolean : expression EQ expression
+            | expression NEQ expression
+            | expression GT expression
+            | expression GTE expression
+            | expression LT expression
+            | expression LTE expression
+    '''
+    p[0] = ast.BinaryOperation(p[1], p[3], p[2]).eval('')
+
+
+def p_boolean(p):
+    '''
+    boolean : TRUE
+            | FALSE
+    '''
+    p[0] = p[1]
 
 
 def p_assignable(p):

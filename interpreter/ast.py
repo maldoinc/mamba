@@ -1,5 +1,6 @@
 import operator
 
+
 class InstructionList:
     def __init__(self, children=None):
         if children is None:
@@ -62,13 +63,21 @@ class Assignment(BaseExpression):
     def eval(self, scope):
         self.identifier.assign(self.val.eval(scope), scope)
 
+
 class BinaryOperation(BaseExpression):
     __operations = {
         '+': operator.add,
         '-': operator.sub,
         '*': operator.mul,
         '**': operator.pow,
-        '/': operator.truediv
+        '/': operator.truediv,
+
+        '>': operator.gt,
+        '>=': operator.ge,
+        '<': operator.lt,
+        '<=': operator.le,
+        '==': operator.eq,
+        '!=': operator.ne
     }
 
     def __init__(self, left, right, op):

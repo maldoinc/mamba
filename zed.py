@@ -7,7 +7,11 @@ script = '''
 
     c= 2 - 2 * 3;
 
-    d = "wello";
+    d = "wello" + " " + "world";
+
+    a = true;
+
+    a = 1 == 2;
 '''
 
 ast = p.parser.parse(script)
@@ -15,4 +19,5 @@ ast = p.parser.parse(script)
 for node in ast.children:
     node.eval('dummy')
 
+print(ast.children)
 print(interpreter.ast.symbols.table())
