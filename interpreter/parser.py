@@ -45,7 +45,10 @@ def p_number(p):
            | STRING
            | boolean
     '''
-    p[0] = ast.Primitive(p[1])
+    if isinstance(p[1], ast.BaseExpression):
+        p[0] = p[1]
+    else:
+        p[0] = ast.Primitive(p[1])
 
 
 def p_boolean_operators(p):
@@ -59,7 +62,7 @@ def p_boolean_operators(p):
             | expression AND expression
             | expression OR expression
     '''
-    p[0] = ast.BinaryOperation(p[1], p[3], p[2]).eval('')
+    p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
 
 def p_boolean(p):
