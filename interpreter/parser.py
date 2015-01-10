@@ -26,6 +26,7 @@ def p_statement_list(p):
 def p_statement(p):
     '''
     statement : identifier
+              | expression
     '''
     p[0] = p[1]
 
@@ -45,18 +46,37 @@ def p_number(p):
     p[0] = ast.Numeric(p[1])
 
 
+def p_assignable(p):
+    '''
+    assignable : number
+               | expression
+    '''
+    p[0] = p[1]
+
+
 def p_assign(p):
     '''
-    statement : identifier EQUALS number STMT_END
+    expression : identifier EQUALS assignable STMT_END
     '''
     p[0] = ast.Assignment(p[1], p[3])
 
 
-def p_print(p):
+def p_arithmetic_op(p):
     '''
-    statement : PRINT identifier STMT_END
+    expression : expression PLUS expression
+               | expression MINUS expression
+               | expression MUL expression
+               | expression DIV expression
     '''
-    print(p[2])
+    p[0] = ast.BinaryOperation(p[1], p[3], p[2])
+
+
+def p_expression(p):
+    '''
+    expression : number
+               | STRING
+    '''
+    p[0] = p[1]
 
 
 def p_error(p):

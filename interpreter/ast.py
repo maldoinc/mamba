@@ -1,3 +1,5 @@
+import operator
+
 class InstructionList:
     def __init__(self, children=None):
         if children is None:
@@ -15,11 +17,14 @@ class InstructionList:
 class SymbolTable:
     __table = {}
 
-    def getsym(self, sym, scope='global'):
-        return self.__table[scope][sym]
+    def table(self):
+        return self.__table
 
-    def setsym(self, sym, val, scope='global'):
-        self.__table[scope][sym] = val
+    def getsym(self, sym, scope):
+        return self.__table[sym]
+
+    def setsym(self, sym, val, scope):
+        self.__table[sym] = val
 
 
 symbols = SymbolTable()
@@ -56,3 +61,20 @@ class Assignment(BaseExpression):
 
     def eval(self, scope):
         self.identifier.assign(self.val.eval(scope), scope)
+
+class BinaryOperation(BaseExpression):
+    __operations = {
+        '+': operator.add,
+        '-': operator.sub,
+        '*': operator.mul,
+        '**': operator.pow,
+        '/': operator.truediv
+    }
+
+    def __init__(self, left, right, op):
+        self.left = left
+        self.right = right
+        self.op = op
+
+    def eval(self, scope):
+        return self.__operations[self.op](self.left.eval(scope), self.right.eval(scope))
