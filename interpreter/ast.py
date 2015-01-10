@@ -40,6 +40,9 @@ class Primitive(BaseExpression):
     def __init__(self, value):
         self.value = value
 
+    def __repr__(self):
+        return '<Primitive: "{0}"({1})'.format(self.value, self.value.__class__)
+
     def eval(self, scope):
         return self.value
 
@@ -47,6 +50,9 @@ class Primitive(BaseExpression):
 class Identifier(BaseExpression):
     def __init__(self, name):
         self.name = name
+
+    def __repr__(self):
+        return '<Identifier: {0}>'.format(self.name)
 
     def assign(self, val, scope):
         symbols.setsym(self.name, val, scope)
@@ -59,6 +65,9 @@ class Assignment(BaseExpression):
     def __init__(self, identifier, val):
         self.identifier = identifier
         self.val = val
+
+    def __repr__(self):
+        return '<Assignment: sym = {0}; val = {1}>'.format(self.identifier, self.val)
 
     def eval(self, scope):
         self.identifier.assign(self.val.eval(scope), scope)
@@ -82,6 +91,9 @@ class BinaryOperation(BaseExpression):
         'and': operator.and_,
         'or': operator.or_,
     }
+
+    def __repr__(self):
+        return '<Binary operation: left = {0}; right = {1}'.format(self.left, self.right)
 
     def __init__(self, left, right, op):
         self.left = left
