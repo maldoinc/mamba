@@ -107,6 +107,7 @@ def p_comma_separated_expr(p):
         p[1].children.append(p[3])
         p[0] = p[1]
 
+
 def p_assign(p):
     '''
     expression : identifier EQUALS assignable STMT_END
@@ -169,6 +170,20 @@ def p_for_loop(p):
     statement : FOR identifier IN expression ARROW_RTL expression LBRACK statement_list RBRACK
     '''
     p[0] = ast.For(p[2], p[4], p[6], p[5] == '->', p[8])
+
+
+def p_while_loop(p):
+    '''
+    statement : WHILE expression LBRACK statement_list RBRACK
+    '''
+    p[0] = ast.While(p[2], p[4])
+
+
+def p_for_loop_infinite(p):
+    '''
+    statement : FOR LBRACK statement_list RBRACK
+    '''
+    p[0] = ast.While(ast.Primitive(True), p[3])
 
 
 def p_error(p):

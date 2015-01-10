@@ -1,11 +1,10 @@
-for i in 1 -> 10 {
-    for j in 1 -> 10 {
-        say i * j, " ";
+i = 0;
 
-        if j == 5 {
-            exit;
-        }
+for {
+    i = i + 1;
+
+    if i == 100 {
+        say "done!";
+        exit;
     }
-
-    say "\n";
 }

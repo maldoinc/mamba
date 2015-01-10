@@ -25,6 +25,7 @@ class InstructionList:
 
         return ret
 
+
 class SymbolTable:
     __table = {}
 
@@ -148,6 +149,17 @@ class For(BaseExpression):
     def eval(self):
         for i in range(self.start.eval(), 1 + self.end.eval(), 1 if self.asc else -1):
             self.variable.assign(i)
+            if isinstance(self.body.eval(), ExitStatement):
+                break
+
+
+class While(BaseExpression):
+    def __init__(self, condition, body):
+        self.condition = condition
+        self.body = body
+
+    def eval(self):
+        while self.condition.eval():
             if isinstance(self.body.eval(), ExitStatement):
                 break
 

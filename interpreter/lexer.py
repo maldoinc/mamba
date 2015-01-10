@@ -6,6 +6,7 @@ reserved = {
 
     'for': 'FOR',
     'in': 'IN',
+    'while': 'WHILE',
     'exit': 'EXIT',
 
     'fn': 'FUNCTION',
