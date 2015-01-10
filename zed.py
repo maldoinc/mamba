@@ -19,18 +19,24 @@ import pprint
 # '''
 
 
+# script = '''
+#     x = 10;
+#
+#     if x == 10 {
+#         x = 11;
+#
+#         if x == 11 {
+#             this = "works";
+#         }
+#     } else {
+#         nope = ":(";
+#     }
+#
+#     say x+x;
+# '''
+
 script = '''
-    x = 10;
-
-    if x == 10 {
-        x = 11;
-
-        if x == 11 {
-            this = "works";
-        }
-    } else {
-        nope = ":(";
-    }
+    x = (true or false) and false;
 '''
 
 ast = p.parser.parse(script)

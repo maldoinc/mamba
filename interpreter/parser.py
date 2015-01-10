@@ -66,6 +66,13 @@ def p_boolean_operators(p):
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
 
+def p_paren(p):
+    '''
+    expression : LPAREN expression RPAREN
+    '''
+    p[0] = p[2] if isinstance(p[2], ast.BaseExpression) else ast.Primitive(p[2])
+
+
 def p_boolean(p):
     '''
     boolean : TRUE
