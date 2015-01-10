@@ -18,8 +18,6 @@ class InstructionList:
                 return res
 
 
-
-
 class SymbolTable:
     __table = {}
 
@@ -110,9 +108,10 @@ class BinaryOperation(BaseExpression):
 
 
 class If(BaseExpression):
-    def __init__(self, condition: BaseExpression, truepart: InstructionList):
+    def __init__(self, condition: BaseExpression, truepart: InstructionList, elsepart=None):
         self.condition = condition
         self.truepart = truepart
+        self.elsepart = elsepart
 
     def __repr__(self):
         return '<If condition={0}; then={1}>'.format(self.condition, self.truepart)
@@ -120,3 +119,8 @@ class If(BaseExpression):
     def eval(self, scope):
         if self.condition.eval(scope):
             self.truepart.eval()
+        elif self.elsepart is not None:
+            if isinstance(self.elsepart, BaseExpression):
+                self.elsepart.eval(scope)
+            else:
+                self.elsepart.eval()

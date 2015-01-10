@@ -20,8 +20,16 @@ import pprint
 
 
 script = '''
-    if true {
-        a = 5;
+    x = 10;
+
+    if x == 10 {
+        x = 11;
+
+        if x == 11 {
+            this = "works";
+        }
+    } else {
+        nope = ":(";
     }
 '''
 

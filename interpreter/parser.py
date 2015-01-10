@@ -27,6 +27,7 @@ def p_statement(p):
     '''
     statement : identifier
               | expression
+              | if_statement
     '''
     p[0] = p[1]
 
@@ -90,9 +91,23 @@ def p_assign(p):
 
 def p_ifstatement(p):
     '''
-    statement : IF boolean LBRACK statement_list RBRACK
+    if_statement : IF boolean LBRACK statement_list RBRACK
     '''
     p[0] = ast.If(p[2], p[4])
+
+
+def p_ifstatement_else(p):
+    '''
+    if_statement : IF boolean LBRACK statement_list RBRACK ELSE LBRACK statement_list RBRACK
+    '''
+    p[0] = ast.If(p[2], p[4], p[8])
+
+
+def p_ifstatement_else_if(p):
+    '''
+    if_statement : IF boolean LBRACK statement_list RBRACK ELSE if_statement
+    '''
+    p[0] = ast.If(p[2], p[4], p[7])
 
 
 def p_arithmetic_op(p):

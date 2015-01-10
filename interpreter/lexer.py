@@ -2,6 +2,7 @@ import ply.lex as lex
 
 reserved = {
     'if': 'IF',
+    'else': 'ELSE',
     'fn': 'FUNCTION',
     'ret': 'RETURN',
     'say': 'PRINT',
