@@ -67,6 +67,7 @@ def p_arithmetic_op(p):
                | expression MINUS expression
                | expression MUL expression
                | expression DIV expression
+               | expression EXP expression
     '''
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
