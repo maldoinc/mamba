@@ -42,8 +42,9 @@ def p_number(p):
     '''
     number : NUM_INT
            | NUM_FLOAT
+           | STRING
     '''
-    p[0] = ast.Numeric(p[1])
+    p[0] = ast.Primitive(p[1])
 
 
 def p_assignable(p):

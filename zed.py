@@ -6,6 +6,8 @@ script = '''
     b = 6;
 
     c= 2 - 2 * 3;
+
+    d = "wello";
 '''
 
 ast = p.parser.parse(script)

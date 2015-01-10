@@ -35,7 +35,7 @@ class BaseExpression:
         raise NotImplementedError()
 
 
-class Numeric(BaseExpression):
+class Primitive(BaseExpression):
     def __init__(self, value):
         self.value = value
 
