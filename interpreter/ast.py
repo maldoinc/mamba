@@ -7,12 +7,17 @@ class InstructionList:
             children = []
         self.children = children
 
+    def __repr__(self):
+        return '<Instruction list: {0}>'.format(self.children)
+
     def eval(self):
         for n in self.children:
-            res = n.eval()
+            res = n.eval('')
 
             if res is not None:
                 return res
+
+
 
 
 class SymbolTable:
@@ -41,7 +46,7 @@ class Primitive(BaseExpression):
         self.value = value
 
     def __repr__(self):
-        return '<Primitive: "{0}"({1})'.format(self.value, self.value.__class__)
+        return '<Primitive: "{0}"({1})>'.format(self.value, self.value.__class__)
 
     def eval(self, scope):
         return self.value
@@ -93,7 +98,7 @@ class BinaryOperation(BaseExpression):
     }
 
     def __repr__(self):
-        return '<Binary operation: left = {0}; right = {1}'.format(self.left, self.right)
+        return '<Binary operation: left = {0}; right = {1}>'.format(self.left, self.right)
 
     def __init__(self, left, right, op):
         self.left = left
@@ -102,3 +107,16 @@ class BinaryOperation(BaseExpression):
 
     def eval(self, scope):
         return self.__operations[self.op](self.left.eval(scope), self.right.eval(scope))
+
+
+class If(BaseExpression):
+    def __init__(self, condition: BaseExpression, truepart: InstructionList):
+        self.condition = condition
+        self.truepart = truepart
+
+    def __repr__(self):
+        return '<If condition={0}; then={1}>'.format(self.condition, self.truepart)
+
+    def eval(self, scope):
+        if self.condition.eval(scope):
+            self.truepart.eval()

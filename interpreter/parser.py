@@ -38,12 +38,12 @@ def p_identifier(p):
     p[0] = ast.Identifier(p[1])
 
 
-def p_number(p):
+def p_primitive(p):
     '''
-    number : NUM_INT
-           | NUM_FLOAT
-           | STRING
-           | boolean
+    primitive : NUM_INT
+              | NUM_FLOAT
+              | STRING
+              | boolean
     '''
     if isinstance(p[1], ast.BaseExpression):
         p[0] = p[1]
@@ -70,12 +70,12 @@ def p_boolean(p):
     boolean : TRUE
             | FALSE
     '''
-    p[0] = p[1]
+    p[0] = ast.Primitive(p[1])
 
 
 def p_assignable(p):
     '''
-    assignable : number
+    assignable : primitive
                | expression
     '''
     p[0] = p[1]
@@ -83,9 +83,16 @@ def p_assignable(p):
 
 def p_assign(p):
     '''
-    expression : identifier EQUALS expression STMT_END
+    expression : identifier EQUALS assignable STMT_END
     '''
     p[0] = ast.Assignment(p[1], p[3])
+
+
+def p_ifstatement(p):
+    '''
+    statement : IF boolean LBRACK statement_list RBRACK
+    '''
+    p[0] = ast.If(p[2], p[4])
 
 
 def p_arithmetic_op(p):
@@ -101,7 +108,7 @@ def p_arithmetic_op(p):
 
 def p_expression(p):
     '''
-    expression : number
+    expression : primitive
                | STRING
                | identifier
     '''
