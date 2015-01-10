@@ -116,6 +116,24 @@ class BinaryOperation(BaseExpression):
         return self.__operations[self.op](self.left.eval(), self.right.eval())
 
 
+class UnaryOperation(BaseExpression):
+    __operations = {
+        '+': operator.pos,
+        '-': operator.neg,
+        'not': operator.not_
+    }
+
+    def __repr__(self):
+        return '<Unary operation: operation={0} expr={1}>'.format(self.operation, self.expr)
+
+    def __init__(self, operation, expr: BaseExpression):
+        self.operation = operation
+        self.expr = expr
+
+    def eval(self):
+        return self.__operations[self.operation](self.expr.eval())
+
+
 class If(BaseExpression):
     def __init__(self, condition: BaseExpression, truepart: InstructionList, elsepart=None):
         self.condition = condition

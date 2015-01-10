@@ -5,9 +5,12 @@ import interpreter.ast as ast
 from interpreter.lexer import *
 
 precedence = (
+    ('left', 'NOT'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'MUL', 'DIV'),
-    ('left', 'EXP', 'MOD')
+    ('left', 'EXP', 'MOD'),
+    ('right', 'UMINUS'),
+    ('right', 'UPLUS'),
 )
 
 
@@ -71,6 +74,15 @@ def p_boolean_operators(p):
             | expression OR expression
     '''
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
+
+
+def p_unary_operation(p):
+    '''
+    expression : MINUS expression %prec UMINUS
+               | PLUS expression %prec UPLUS
+               | NOT expression
+    '''
+    p[0] = ast.UnaryOperation(p[1], p[2])
 
 
 def p_paren(p):

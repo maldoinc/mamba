@@ -16,6 +16,7 @@ reserved = {
 
     'and': 'AND',
     'or': 'OR',
+    'not': 'NOT'
 }
 
 tokens = [
@@ -102,7 +103,7 @@ def t_NUM_FLOAT(t):
     return t
 
 def t_NUM_INT(t):
-    r'-?\d+'
+    r'\d+'
     t.value = int(t.value)
     return t
 
