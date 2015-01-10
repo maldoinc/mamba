@@ -7,7 +7,7 @@ from interpreter.lexer import *
 precedence = (
     ('left', 'PLUS', 'MINUS'),
     ('left', 'MUL', 'DIV'),
-    ('left', 'EXP')
+    ('left', 'EXP', 'MOD')
 )
 
 
@@ -131,6 +131,7 @@ def p_arithmetic_op(p):
                | expression MUL expression
                | expression DIV expression
                | expression EXP expression
+               | expression MOD expression
     '''
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 

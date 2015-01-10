@@ -83,6 +83,7 @@ class BinaryOperation(BaseExpression):
         '*': operator.mul,
         '**': operator.pow,
         '/': operator.truediv,
+        '%': operator.mod,
 
         '>': operator.gt,
         '>=': operator.ge,

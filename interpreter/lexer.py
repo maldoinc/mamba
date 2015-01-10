@@ -35,6 +35,7 @@ tokens = [
     'MINUS',
     'MUL',
     'DIV',
+    'MOD',
 
     'TRUE',
     'FALSE',
@@ -58,6 +59,7 @@ t_EXP = r'\*\*'
 t_MINUS = '-'
 t_MUL = r'\*'
 t_DIV = r'/'
+t_MOD = '%'
 t_STMT_END = ';'
 t_EQUALS = '='
 t_ignore_WS = r'\s+'
