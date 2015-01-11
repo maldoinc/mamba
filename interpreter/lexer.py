@@ -79,6 +79,7 @@ t_LT = '<'
 t_LTE = '<='
 t_ARROW_LTR = '->'
 t_ARROW_RTL = '<-'
+t_ignore_COMMENTS = r'//.+'
 
 
 def t_NEWLINE(t):

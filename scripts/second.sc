@@ -1,4 +1,14 @@
+// adds 10
 fn add_ten(n){
+    // says lol!!
+    fn lol(){
+        fn getstr(){ ret "lol"; }
+
+        say getstr();
+    }
+
+    say lol();
+
     ret n + 10;
 }
 
