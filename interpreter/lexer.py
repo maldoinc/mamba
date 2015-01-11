@@ -32,6 +32,7 @@ tokens = [
     'RBRACK',
     'COMMA',
     'STRING',
+    'NEWLINE',
 
     'PLUS',
     'EXP',
@@ -79,6 +80,12 @@ t_LTE = '<='
 t_ARROW_LTR = '->'
 t_ARROW_RTL = '<-'
 
+
+def t_NEWLINE(t):
+    r'\n'
+    t.lexer.lineno += 1
+    t.lexer.linepos = 0
+    pass
 
 def t_TRUE(t):
     'true'

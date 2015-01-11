@@ -27,16 +27,42 @@ class InstructionList:
 
 
 class SymbolTable:
-    __table = {}
+    __func = 'functions'
+    __sym = 'symbols'
+    __local = 'local'
+
+    __is_local = False
+
+    __table = {
+        __func: {},
+        __sym: {},
+        __local: {}
+    }
+
 
     def table(self):
         return self.__table
 
+    def set_local(self, flag):
+        self.__is_local = flag
+
+        if not flag:
+            self.__table[self.__local] = {}
+
     def getsym(self, sym):
-        return self.__table[sym]
+        if self.__is_local and sym in self.__table[self.__local]:
+            return self.__table[self.__local][sym]
+
+        return self.__table[self.__sym][sym]
 
     def setsym(self, sym, val):
-        self.__table[sym] = val
+        self.__table[self.__local if self.__is_local else self.__sym][sym] = val
+
+    def getfunc(self, name):
+        return self.__table[self.__func][name]
+
+    def setfunc(self, name, val):
+        self.__table[self.__func][name] = val
 
 
 symbols = SymbolTable()
@@ -59,6 +85,8 @@ class Primitive(BaseExpression):
 
 
 class Identifier(BaseExpression):
+    is_function = False
+
     def __init__(self, name):
         self.name = name
 
@@ -66,14 +94,20 @@ class Identifier(BaseExpression):
         return '<Identifier: {0}>'.format(self.name)
 
     def assign(self, val):
-        symbols.setsym(self.name, val)
+        if self.is_function:
+            symbols.setfunc(self.name, val)
+        else:
+            symbols.setsym(self.name, val)
 
     def eval(self):
+        if self.is_function:
+            return symbols.getfunc(self.name)
+
         return symbols.getsym(self.name)
 
 
 class Assignment(BaseExpression):
-    def __init__(self, identifier, val):
+    def __init__(self, identifier: Identifier, val):
         self.identifier = identifier
         self.val = val
 
@@ -81,7 +115,10 @@ class Assignment(BaseExpression):
         return '<Assignment: sym = {0}; val = {1}>'.format(self.identifier, self.val)
 
     def eval(self):
-        self.identifier.assign(self.val.eval())
+        if self.identifier.is_function:
+            self.identifier.assign(self.val)
+        else:
+            self.identifier.assign(self.val.eval())
 
 
 class BinaryOperation(BaseExpression):
@@ -176,6 +213,9 @@ class While(BaseExpression):
         self.condition = condition
         self.body = body
 
+    def __repr__(self):
+        return '<While cond={0} body={1}>'.format(self.condition, self.body)
+
     def eval(self):
         while self.condition.eval():
             if isinstance(self.body.eval(), ExitStatement):
@@ -190,6 +230,20 @@ class ExitStatement(BaseExpression):
         pass
 
 
+class ReturnStatement(ExitStatement):
+    def __init__(self, expr: BaseExpression):
+        self.expr = expr
+
+    def __repr__(self):
+        return '<Return expr={0}>'.format(self.expr)
+
+    def eval(self):
+        while isinstance(self.expr, BaseExpression):
+            self.expr = self.expr.eval()
+
+        return self.expr
+
+
 class PrintStatement(BaseExpression):
     def __init__(self, items: InstructionList):
         self.items = items
@@ -199,3 +253,65 @@ class PrintStatement(BaseExpression):
 
     def eval(self):
         print(*self.items.eval(), end='', sep='')
+
+
+class FunctionCall(BaseExpression):
+    def __init__(self, name: Identifier, params: InstructionList):
+        self.name = name
+        self.params = params
+
+    def __repr__(self):
+        return '<Function call name={0} params={1}>'.format(self.name, self.params)
+
+    def eval(self):
+        func = self.name.eval()
+        return func.eval(self.params)
+
+
+class Function(BaseExpression):
+    def __init__(self, params: InstructionList, body: InstructionList):
+        self.params = params
+        self.body = body
+
+    def __repr__(self):
+        return '<Function params={0} body={1}>'.format(self.params, self.body)
+
+    def eval(self, call_params: InstructionList):
+        symbols.set_local(True)
+
+        for param, value in zip(self.params.children, call_params.children):
+            symbols.setsym(param.name, value.eval())
+
+        try:
+            ret = self.body.eval()
+
+            if isinstance(ret, ReturnStatement):
+                return ret.eval()
+        finally:
+            symbols.set_local(False)
+
+        return None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

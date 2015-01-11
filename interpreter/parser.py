@@ -112,9 +112,12 @@ def p_comma_separated_expr(p):
     '''
     arguments : arguments COMMA expression
               | expression
+              |
     '''
     if len(p) == 2:
         p[0] = ast.InstructionList([p[1]])
+    elif len(p) == 1:
+        p[0] = ast.InstructionList([])
     else:
         p[1].children.append(p[3])
         p[0] = p[1]
@@ -196,6 +199,29 @@ def p_for_loop_infinite(p):
     statement : FOR LBRACK statement_list RBRACK
     '''
     p[0] = ast.While(ast.Primitive(True), p[3])
+
+
+def p_function_declaration(p):
+    '''
+    statement : FUNCTION identifier LPAREN arguments RPAREN LBRACK statement_list RBRACK
+    '''
+    p[2].is_function = True
+    p[0] = ast.Assignment(p[2], ast.Function(p[4], p[7]))
+
+
+def p_return(p):
+    '''
+    statement : RETURN expression STMT_END
+    '''
+    p[0] = ast.ReturnStatement(p[2])
+
+
+def p_function_call(p):
+    '''
+    expression : identifier LPAREN arguments RPAREN
+    '''
+    p[1].is_function = True
+    p[0] = ast.FunctionCall(p[1], p[3])
 
 
 def p_error(p):
