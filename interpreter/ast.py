@@ -267,10 +267,11 @@ class ReturnStatement(ExitStatement):
         return '<Return expr={0}>'.format(self.expr)
 
     def eval(self):
-        while isinstance(self.expr, BaseExpression):
-            self.expr = self.expr.eval()
+        ret = self.expr
+        while isinstance(ret, BaseExpression):
+            ret = ret.eval()
 
-        return self.expr
+        return ret
 
 
 class PrintStatement(BaseExpression):

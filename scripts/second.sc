@@ -24,6 +24,12 @@ fn fac(n){
     ret n * fac(n-1);
 }
 
-say add_ten(10), "\n";
-say fac(10), "\n";
-say add10_divide(10, 4);
+fn fib(n){
+    if n == 0 or n == 1{ ret n; }
+
+    ret fib(n - 1) + fib(n - 2);
+}
+
+for i in 1 -> 10{
+    say fib(i), "\n";
+}
