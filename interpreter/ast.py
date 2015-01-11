@@ -31,32 +31,40 @@ class SymbolTable:
     __sym = 'symbols'
     __local = 'local'
 
-    __is_local = False
-
     __table = {
         __func: {},
         __sym: {},
-        __local: {}
+        __local: []
     }
 
+    def __is_local(self):
+        return len(self.__table[self.__local]) > 0
 
     def table(self):
         return self.__table
 
-    def set_local(self, flag):
-        self.__is_local = flag
+    def get_local_table(self):
+        t = self.__table[self.__local]
 
-        if not flag:
-            self.__table[self.__local] = {}
+        return t[len(t) - 1]
+
+    def set_local(self, flag):
+        if flag:
+            self.__table[self.__local].append({})
+        else:
+            self.__table[self.__local].pop()
 
     def getsym(self, sym):
-        if self.__is_local and sym in self.__table[self.__local]:
-            return self.__table[self.__local][sym]
+        if self.__is_local() and sym in self.get_local_table():
+            return self.get_local_table()[sym]
 
         return self.__table[self.__sym][sym]
 
     def setsym(self, sym, val):
-        self.__table[self.__local if self.__is_local else self.__sym][sym] = val
+        if self.__is_local():
+            self.get_local_table()[sym] = val
+        else:
+            self.__table[self.__sym][sym] = val
 
     def getfunc(self, name):
         return self.__table[self.__func][name]
@@ -265,7 +273,15 @@ class FunctionCall(BaseExpression):
 
     def eval(self):
         func = self.name.eval()
-        return func.eval(self.params)
+        args = {}
+
+        for p, v in zip(func.params.children, self.params.children):
+            while isinstance(v, BaseExpression):
+                v = v.eval()
+
+            args[p.name] = v
+
+        return func.eval(args)
 
 
 class Function(BaseExpression):
@@ -276,11 +292,11 @@ class Function(BaseExpression):
     def __repr__(self):
         return '<Function params={0} body={1}>'.format(self.params, self.body)
 
-    def eval(self, call_params: InstructionList):
+    def eval(self, args):
         symbols.set_local(True)
 
-        for param, value in zip(self.params.children, call_params.children):
-            symbols.setsym(param.name, value.eval())
+        for k, v in args.items():
+            symbols.setsym(k, v)
 
         try:
             ret = self.body.eval()
