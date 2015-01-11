@@ -161,6 +161,27 @@ class BinaryOperation(BaseExpression):
         return self.__operations[self.op](self.left.eval(), self.right.eval())
 
 
+class CompoundOperation(BaseExpression):
+    __operations = {
+        '+=': operator.iadd,
+        '-=': operator.isub,
+        '/=': operator.itruediv,
+        '*=': operator.imul,
+        '**=': operator.ipow,
+    }
+
+    def __init__(self, identifier: Identifier, modifier: BaseExpression, operation: str):
+        self.identifier = identifier
+        self.modifier = modifier
+        self.operation = operation
+
+    def eval(self):
+        l = self.identifier.eval()
+        r = self.modifier.eval()
+
+        self.identifier.assign(self.__operations[self.operation](l, r))
+
+
 class UnaryOperation(BaseExpression):
     __operations = {
         '+': operator.pos,

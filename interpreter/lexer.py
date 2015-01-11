@@ -41,6 +41,14 @@ tokens = [
     'DIV',
     'MOD',
 
+    'PLUS_EQ',
+    'MINUS_EQ',
+    'MUL_EQ',
+    'DIV_EQ',
+    'MOD_EQ',
+    'EXP_EQ',
+
+
     'TRUE',
     'FALSE',
 
@@ -80,6 +88,12 @@ t_LTE = '<='
 t_ARROW_LTR = '->'
 t_ARROW_RTL = '<-'
 t_ignore_COMMENTS = r'//.+'
+t_PLUS_EQ = r'\+='
+t_MINUS_EQ = r'-='
+t_MUL_EQ = r'\*='
+t_DIV_EQ = r'/='
+t_MOD_EQ = '%='
+t_EXP_EQ = '\*\*='
 
 
 def t_NEWLINE(t):

@@ -170,6 +170,18 @@ def p_arithmetic_op(p):
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
 
+def p_compound_operations(p):
+    '''
+    statement : identifier PLUS_EQ expression STMT_END
+               | identifier MINUS_EQ expression STMT_END
+               | identifier MUL_EQ expression STMT_END
+               | identifier DIV_EQ expression STMT_END
+               | identifier EXP_EQ expression STMT_END
+               | identifier MOD_EQ expression STMT_END
+    '''
+    p[0] = ast.CompoundOperation(p[1], p[3], p[2])
+
+
 def p_expression(p):
     '''
     expression : primitive
