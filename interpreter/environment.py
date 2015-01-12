@@ -1,5 +1,6 @@
 import interpreter.ast as ast
 import math
+import time
 
 
 def substr(s: str, start: int, length: int):
@@ -8,6 +9,10 @@ def substr(s: str, start: int, length: int):
 
 def str_pos(sub: str, string: str):
     return string.index(sub)
+
+
+def str_format(string, *args):
+    return string % tuple(args)
 
 
 def declare_env(s: ast.SymbolTable):
@@ -21,7 +26,9 @@ def declare_env(s: ast.SymbolTable):
 
     # math
     s.setfunc('floor', f(int))
-    s.setfunc('abs', f(int))
+    s.setfunc('float', f(float))
+    s.setfunc('round', f(round))
+    s.setfunc('abs', f(abs))
     s.setfunc('log', f(math.log))
     s.setfunc('log2', f(math.log))
 
@@ -37,7 +44,9 @@ def declare_env(s: ast.SymbolTable):
     s.setfunc('upper', f(str.upper))
     s.setfunc('lower', f(str.lower))
     s.setfunc('replace', f(str.replace))
+    s.setfunc('format', f(str_format))
 
     # misc
     s.setfunc('chr', f(chr))
     s.setfunc('ord', f(ord))
+    s.setfunc('time', f(time.time))
