@@ -41,6 +41,9 @@ tokens = [
     'DIV',
     'MOD',
 
+    'DOUBLE_PLUS',
+    'DOUBLE_MINUS',
+
     'PLUS_EQ',
     'MINUS_EQ',
     'MUL_EQ',
@@ -94,6 +97,9 @@ t_MUL_EQ = r'\*='
 t_DIV_EQ = r'/='
 t_MOD_EQ = '%='
 t_EXP_EQ = '\*\*='
+
+t_DOUBLE_PLUS = r'\+\+'
+t_DOUBLE_MINUS = '--'
 
 
 def t_NEWLINE(t):

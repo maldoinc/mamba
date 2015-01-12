@@ -179,8 +179,11 @@ class CompoundOperation(BaseExpression):
     def eval(self):
         l = self.identifier.eval()
         r = self.modifier.eval()
+        res = self.__operations[self.operation](l, r);
 
-        self.identifier.assign(self.__operations[self.operation](l, r))
+        self.identifier.assign(res)
+
+        return res
 
 
 class UnaryOperation(BaseExpression):
