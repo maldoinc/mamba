@@ -167,6 +167,7 @@ class CompoundOperation(BaseExpression):
         '-=': operator.isub,
         '/=': operator.itruediv,
         '*=': operator.imul,
+        '%=': operator.imod,
         '**=': operator.ipow,
     }
 
