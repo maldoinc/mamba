@@ -18,6 +18,8 @@ $(name) is a simple dynamic typed, (turing complete :: todo) programming languag
 ### TODO ###
 * Arrays
 * Modules
+* stdin
+*
 
 
 ### Language description ###
@@ -80,7 +82,10 @@ which acts as an infinite loop (which internally is expressed as a `while true {
 All loops can be prematurely exited via the `exit` statement when necessary
 
 
+### Printing ###
 
+Printing is supported via the `say` keyword which accepts a list of values to print. Note that `say` doesn't
+add spaces nor newlines after printing.
 
 
 
