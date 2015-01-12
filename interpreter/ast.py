@@ -179,7 +179,7 @@ class CompoundOperation(BaseExpression):
     def eval(self):
         l = self.identifier.eval()
         r = self.modifier.eval()
-        res = self.__operations[self.operation](l, r);
+        res = self.__operations[self.operation](l, r)
 
         self.identifier.assign(res)
 
@@ -297,7 +297,19 @@ class FunctionCall(BaseExpression):
     def __repr__(self):
         return '<Function call name={0} params={1}>'.format(self.name, self.params)
 
-    def eval(self):
+    def __eval_builtin_func(self):
+        func = self.name.eval()
+        args = []
+
+        for p in self.params.children:
+            while isinstance(p, BaseExpression):
+                p = p.eval()
+
+            args.append(p)
+
+        return func.eval(args)
+
+    def __eval_udf(self):
         func = self.name.eval()
         args = {}
 
@@ -308,6 +320,12 @@ class FunctionCall(BaseExpression):
             args[p.name] = v
 
         return func.eval(args)
+
+    def eval(self):
+        if isinstance(self.name.eval(), BuiltInFunction):
+            return self.__eval_builtin_func()
+
+        return self.__eval_udf()
 
 
 class Function(BaseExpression):
@@ -335,25 +353,12 @@ class Function(BaseExpression):
         return None
 
 
+class BuiltInFunction(BaseExpression):
+    def __init__(self, func):
+        self.func = func
 
+    def __repr__(self):
+        return '<Builtin function {0}>'.format(self.func)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def eval(self, args):
+        return self.func(*args)

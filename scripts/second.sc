@@ -1,35 +1,7 @@
-// adds 10
-fn add_ten(n){
-    // says lol!!
-    fn lol(){
-        fn getstr(){ ret "lol"; }
-
-        say getstr();
-    }
-
-    say lol();
-
-    ret n + 10;
+fn insert(src, sub, pos){
+    ret substr(src, 0, pos) + sub + substr(src, pos, len(src));
 }
 
-fn add10_divide(a, b){
-    ret add_ten(a) / b;
-}
+say upper(insert("hello world", ":) ", 4)), "\n";
 
-fn fac(n){
-    if n <= 0 {
-        ret 1;
-    }
-
-    ret n * fac(n-1);
-}
-
-fn fib(n){
-    if n == 0 or n == 1{ ret n; }
-
-    ret fib(n - 1) + fib(n - 2);
-}
-
-for i in 1 -> 10{
-    say fib(i), "\n";
-}
+say replace("aldo", "a", "ma");

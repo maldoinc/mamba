@@ -1,16 +1,19 @@
 import interpreter.parser as p
 import interpreter.ast
+import interpreter.environment
 import pprint
 
 with open("scripts/second.sc") as f:
     script = f.read()
 
-ast = p.parser.parse(script)
+res = p.parser.parse(script)
 
-for node in ast.children:
+interpreter.environment.declare_env(interpreter.ast.symbols)
+
+for node in res.children:
     node.eval()
 
 print("\n\n" + '=' * 80)
 pp = pprint.PrettyPrinter()
-pp.pprint(ast.children)
+pp.pprint(res.children)
 pp.pprint(interpreter.ast.symbols.table())
