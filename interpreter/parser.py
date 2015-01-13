@@ -253,9 +253,9 @@ def p_function_call(p):
 
 def p_error(p):
     if p is not None:
-        raise SyntaxError("Syntax error at line %d, illegal token '%s' found" % (p.lineno, p.value))
+        raise ParserSyntaxError("Syntax error at line %d, illegal token '%s' found" % (p.lineno, p.value))
 
-    raise SyntaxError("Unexpected end of input")
+    raise ParserSyntaxError("Unexpected end of input")
 
 
 def get_parser():

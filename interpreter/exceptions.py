@@ -14,7 +14,7 @@ class UnexpectedCharacter(InterpreterException):
     pass
 
 
-class SyntaxError(InterpreterException):
+class ParserSyntaxError(InterpreterException):
     pass
 
 
