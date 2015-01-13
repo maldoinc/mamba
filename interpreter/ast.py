@@ -8,6 +8,9 @@ class InstructionList:
             children = []
         self.children = children
 
+    def __iter__(self):
+        return iter(self.children)
+
     def __repr__(self):
         return '<Instruction list: {0}>'.format(self.children)
 
@@ -19,7 +22,7 @@ class InstructionList:
         '''
 
         ret = []
-        for n in self.children:
+        for n in self:
             if isinstance(n, ExitStatement):
                 return n
 
@@ -339,7 +342,7 @@ class FunctionCall(BaseExpression):
         func = self.name.eval()
         args = []
 
-        for p in self.params.children:
+        for p in self.params:
             args.append(full_eval(p))
 
         return func.eval(args)
@@ -352,7 +355,7 @@ class FunctionCall(BaseExpression):
         # whatever is being passed on.
         #
         # On the parameters we only need the name rather than fully evaluating them
-        for p, v in zip(func.params.children, self.params.children):
+        for p, v in zip(func.params, self.params):
             args[p.name] = full_eval(v)
 
         return func.eval(args)
