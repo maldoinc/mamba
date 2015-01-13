@@ -18,10 +18,7 @@ class InstructionList:
                 return n
 
             res = n.eval()
-
-            if isinstance(res, ExitStatement):
-                return res
-            elif res is not None:
+            if res is not None:
                 ret.append(res)
 
         return ret
