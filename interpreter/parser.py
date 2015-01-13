@@ -120,7 +120,7 @@ def p_comma_separated_expr(p):
     if len(p) == 2:
         p[0] = ast.InstructionList([p[1]])
     elif len(p) == 1:
-        p[0] = ast.InstructionList([])
+        p[0] = ast.InstructionList()
     else:
         p[1].children.append(p[3])
         p[0] = p[1]
@@ -237,7 +237,7 @@ def p_function_declaration(p):
     if len(p) == 9:
         p[0] = ast.Assignment(p[2], ast.Function(p[4], p[7]))
     else:
-        p[0] = ast.Assignment(p[2], ast.Function(ast.InstructionList([]), p[4]))
+        p[0] = ast.Assignment(p[2], ast.Function(ast.InstructionList(), p[4]))
 
 
 def p_return(p):
