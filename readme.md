@@ -106,6 +106,7 @@ add spaces nor newlines after printing.
 * `cos(x)`
 * `tan(x)`
 * `atan(x)`
+* `str(x)`
 * `substr(str, start, length)`
 * `len(str)`
 * `pos(substr, str)`

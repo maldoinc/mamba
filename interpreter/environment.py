@@ -45,6 +45,7 @@ def declare_env(s: ast.SymbolTable):
     s.setfunc('lower', f(str.lower))
     s.setfunc('replace', f(str.replace))
     s.setfunc('format', f(str_format))
+    s.setfunc('str', f(str))
 
     # misc
     s.setfunc('chr', f(chr))
