@@ -71,13 +71,13 @@ class SymbolTable:
 
     def getfunc(self, name):
         if name in self.__table[self.__func]:
-            return self.__table[self.__func]
+            return self.__table[self.__func][name]
 
         raise SymbolNotFound("Undefined function '%s'" % name)
 
     def setfunc(self, name, val):
         if name in self.__table[self.__func]:
-            raise DuplicateSymbol("Cannot redeclare function '%s'" % name)
+            raise DuplicateSymbol("Cannot redeclare function '%s'" )
 
         self.__table[self.__func][name] = val
 
