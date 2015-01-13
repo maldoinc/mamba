@@ -88,5 +88,31 @@ Printing is supported via the `say` keyword which accepts a list of values to pr
 add spaces nor newlines after printing.
 
 
+### Standard library ###
 
+#### 1. Constants ###
 
+* `e`
+* `pi`
+
+#### 2. Functions
+
+* `floor(x)` 
+* `float(x)`
+* `round(value, precision)`
+* `abs(x)`
+* `log(x)`
+* `sin(x)`
+* `cos(x)`
+* `tan(x)`
+* `atan(x)`
+* `substr(str, start, length)`
+* `len(str)`
+* `pos(substr, str)`
+* `upper(str)`
+* `lower(str)`
+* `replace(str, find, replace)`
+* `format(string, [ ... ])`
+* `chr(x)`
+* `ord(x)`
+* `time`
