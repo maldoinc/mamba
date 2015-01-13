@@ -1,4 +1,5 @@
 import ply.lex as lex
+import interpreter.exceptions
 
 reserved = {
     'if': 'IF',
@@ -145,7 +146,7 @@ def t_STRING(t):
 
 
 def t_error(t):
-    raise TypeError("Unknown text '%s'" % (t.value,))
+    raise interpreter.exceptions.UnexpectedCharacter("Unexpected character '%s' at line %d" % (t.value[0], t.lineno))
 
 
 lexer = lex.lex()

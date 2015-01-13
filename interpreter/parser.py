@@ -3,6 +3,7 @@ import sys
 import ply.yacc as yacc
 import interpreter.ast as ast
 from interpreter.lexer import *
+from interpreter.exceptions import *
 
 disable_warnings = False
 
@@ -250,8 +251,10 @@ def p_function_call(p):
 
 
 def p_error(p):
-    print("Syntax error in input!")
-    print(p)
+    if p is not None:
+        raise SyntaxError("Syntax error at line %d, illegal token '%s' found" % (p.lineno, p.value))
+
+    raise SyntaxError("Unexpected end of input")
 
 
 def get_parser():

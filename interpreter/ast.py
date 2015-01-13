@@ -1,5 +1,5 @@
 import operator
-
+from interpreter.exceptions import *
 
 class InstructionList:
     def __init__(self, children=None):
@@ -58,7 +58,10 @@ class SymbolTable:
         if self.__is_local() and sym in self.get_local_table():
             return self.get_local_table()[sym]
 
-        return self.__table[self.__sym][sym]
+        if sym in self.__table[self.__sym]:
+            return self.__table[self.__sym][sym]
+
+        raise SymbolNotFound("Undefined variable '%s'" % sym)
 
     def setsym(self, sym, val):
         if self.__is_local():
@@ -67,9 +70,15 @@ class SymbolTable:
             self.__table[self.__sym][sym] = val
 
     def getfunc(self, name):
-        return self.__table[self.__func][name]
+        if name in self.__table[self.__func]:
+            return self.__table[self.__func]
+
+        raise SymbolNotFound("Undefined function '%s'" % name)
 
     def setfunc(self, name, val):
+        if name in self.__table[self.__func]:
+            raise DuplicateSymbol("Cannot redeclare function '%s'" % name)
+
         self.__table[self.__func][name] = val
 
 
