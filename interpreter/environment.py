@@ -25,7 +25,7 @@ def declare_env(s: ast.SymbolTable):
     # Built in functions
 
     # math
-    s.setfunc('floor', f(int))
+    s.setfunc('int', f(int))
     s.setfunc('float', f(float))
     s.setfunc('round', f(round))
     s.setfunc('abs', f(abs))

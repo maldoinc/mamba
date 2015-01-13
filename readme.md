@@ -97,7 +97,7 @@ add spaces nor newlines after printing.
 
 #### 2. Functions
 
-* `floor(x)` 
+* `int(x)` 
 * `float(x)`
 * `round(value, precision)`
 * `abs(x)`
