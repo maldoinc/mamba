@@ -230,9 +230,14 @@ def p_for_loop_infinite(p):
 def p_function_declaration(p):
     '''
     statement : FUNCTION identifier LPAREN arguments RPAREN LBRACK statement_list RBRACK
+              | FUNCTION identifier LBRACK statement_list RBRACK
     '''
     p[2].is_function = True
-    p[0] = ast.Assignment(p[2], ast.Function(p[4], p[7]))
+
+    if len(p) == 8:
+        p[0] = ast.Assignment(p[2], ast.Function(p[4], p[7]))
+    else:
+        p[0] = ast.Assignment(p[2], ast.Function(ast.InstructionList([]), p[4]))
 
 
 def p_return(p):
