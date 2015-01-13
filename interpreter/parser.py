@@ -234,7 +234,7 @@ def p_function_declaration(p):
     '''
     p[2].is_function = True
 
-    if len(p) == 8:
+    if len(p) == 9:
         p[0] = ast.Assignment(p[2], ast.Function(p[4], p[7]))
     else:
         p[0] = ast.Assignment(p[2], ast.Function(ast.InstructionList([]), p[4]))
