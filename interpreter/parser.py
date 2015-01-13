@@ -191,9 +191,9 @@ def p_increment_decrement_identifiers(p):
                | identifier DOUBLE_MINUS
     '''
     if p[2] == '++':
-        p[0] = ast.CompoundOperation(p[1], ast.Primitive(1), '+=')
+        p[0] = ast.BinaryOperation(p[1], ast.Primitive(1), '+')
     else:
-        p[0] = ast.CompoundOperation(p[1], ast.Primitive(1), '-=')
+        p[0] = ast.BinaryOperation(p[1], ast.Primitive(1), '-')
 
 
 def p_expression(p):
