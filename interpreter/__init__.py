@@ -24,3 +24,5 @@ def execute(source, show_ast: bool=False, disable_warnings: bool=True):
             pp.pprint(interpreter.ast.symbols.table())
     except Exception as e:
         print(e.__class__.__name__ + ': ' + str(e), file=sys.stderr)
+        if not disable_warnings:
+            raise e
