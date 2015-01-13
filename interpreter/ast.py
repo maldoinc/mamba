@@ -1,6 +1,7 @@
 import operator
 from interpreter.exceptions import *
 
+
 class InstructionList:
     def __init__(self, children=None):
         if children is None:
@@ -77,7 +78,7 @@ class SymbolTable:
 
     def setfunc(self, name, val):
         if name in self.__table[self.__func]:
-            raise DuplicateSymbol("Cannot redeclare function '%s'" )
+            raise DuplicateSymbol("Cannot redeclare function '%s'")
 
         self.__table[self.__func][name] = val
 
