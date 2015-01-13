@@ -22,5 +22,5 @@ def execute(source, show_ast: bool=False, disable_warnings: bool=True):
             pp = pprint.PrettyPrinter()
             pp.pprint(res.children)
             pp.pprint(interpreter.ast.symbols.table())
-    except interpreter.exceptions.InterpreterException as e:
-        print(e.message, file=sys.stderr)
+    except Exception as e:
+        print(e.__class__.__name__ + ': ' + str(e), file=sys.stderr)
