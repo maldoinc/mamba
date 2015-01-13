@@ -12,6 +12,12 @@ class InstructionList:
         return '<Instruction list: {0}>'.format(self.children)
 
     def eval(self):
+        '''
+        Evaluates all the class children and returns the result
+        of their eval method in a list or returns an ExitStatement
+        in case one is found
+        '''
+
         ret = []
         for n in self.children:
             if isinstance(n, ExitStatement):
@@ -36,12 +42,24 @@ class SymbolTable:
     }
 
     def __is_local(self):
+        '''
+        Returns true if symbol table is being called from inside
+        a function rather than the global scope
+
+        :return: bool
+        '''
         return len(self.__table[self.__local]) > 0
 
     def table(self):
         return self.__table
 
     def get_local_table(self):
+        '''
+        Returns the active local symbol table (the last one on the stack)
+
+        :return:
+        '''
+
         t = self.__table[self.__local]
 
         return t[len(t) - 1]
@@ -53,12 +71,15 @@ class SymbolTable:
             self.__table[self.__local].pop()
 
     def getsym(self, sym):
+        # check the local symbol table for the variable
         if self.__is_local() and sym in self.get_local_table():
             return self.get_local_table()[sym]
 
+        # if not found check the global scope
         if sym in self.__table[self.__sym]:
             return self.__table[self.__sym][sym]
 
+        # nope... sorry :(
         raise SymbolNotFound("Undefined variable '%s'" % sym)
 
     def setsym(self, sym, val):
@@ -184,13 +205,14 @@ class CompoundOperation(BaseExpression):
         self.operation = operation
 
     def eval(self):
+        # Express the compound operation as a 'simplified' binary op
+        # does not return anything as compound operations
+        # are statements and not expressions
+
         l = self.identifier.eval()
         r = self.modifier.eval()
-        res = self.__operations[self.operation](l, r)
 
-        self.identifier.assign(res)
-
-        return res
+        self.identifier.assign(self.__operations[self.operation](l, r))
 
 
 class UnaryOperation(BaseExpression):
@@ -235,7 +257,7 @@ class For(BaseExpression):
         self.variable = variable
         self.start = start
         self.end = end
-        self.asc = asc
+        self.asc = asc  # ascending order
         self.body = body
 
     def __repr__(self):
@@ -244,6 +266,8 @@ class For(BaseExpression):
     def eval(self):
         for i in range(self.start.eval(), 1 + self.end.eval(), 1 if self.asc else -1):
             self.variable.assign(i)
+
+            # in case of exit statement prematurely break the loop
             if isinstance(self.body.eval(), ExitStatement):
                 break
 
@@ -320,6 +344,10 @@ class FunctionCall(BaseExpression):
         func = self.name.eval()
         args = {}
 
+        # pair the defined parameters in the function signature with
+        # whatever is being passed on.
+        #
+        # On the parameters we only need the name rather than fully evaluating them
         for p, v in zip(func.params.children, self.params.children):
             while isinstance(v, BaseExpression):
                 v = v.eval()
