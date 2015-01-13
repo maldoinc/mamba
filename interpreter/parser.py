@@ -4,6 +4,8 @@ import ply.yacc as yacc
 import interpreter.ast as ast
 from interpreter.lexer import *
 
+disable_warnings = False
+
 precedence = (
     ('left', 'NOT'),
     ('left', 'PLUS', 'MINUS'),
@@ -251,4 +253,6 @@ def p_error(p):
     print("Syntax error in input!")
     print(p)
 
-parser = yacc.yacc()
+
+def get_parser():
+    return yacc.yacc(errorlog=yacc.NullLogger()) if disable_warnings else yacc.yacc()
