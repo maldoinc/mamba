@@ -245,7 +245,8 @@ def p_return(p):
 def p_function_call(p):
     '''
     expression : identifier LPAREN arguments RPAREN
-               | identifier LPAREN arguments RPAREN STMT_END
+    statement : identifier LPAREN arguments RPAREN STMT_END
+
     '''
     p[1].is_function = True
     p[0] = ast.FunctionCall(p[1], p[3])
