@@ -21,53 +21,52 @@ reserved = {
 }
 
 tokens = [
-    'KEYWORD',
-    'STMT_END',
-    'EQUALS',
-    'IDENTIFIER',
-    'NUM_INT',
-    'NUM_FLOAT',
-    'LPAREN',
-    'RPAREN',
-    'LBRACK',
-    'RBRACK',
-    'COMMA',
-    'STRING',
-    'NEWLINE',
+             'KEYWORD',
+             'STMT_END',
+             'EQUALS',
+             'IDENTIFIER',
+             'NUM_INT',
+             'NUM_FLOAT',
+             'LPAREN',
+             'RPAREN',
+             'LBRACK',
+             'RBRACK',
+             'COMMA',
+             'STRING',
+             'NEWLINE',
 
-    'PLUS',
-    'EXP',
-    'MINUS',
-    'MUL',
-    'DIV',
-    'MOD',
+             'PLUS',
+             'EXP',
+             'MINUS',
+             'MUL',
+             'DIV',
+             'MOD',
 
-    'DOUBLE_PLUS',
-    'DOUBLE_MINUS',
+             'DOUBLE_PLUS',
+             'DOUBLE_MINUS',
 
-    'PLUS_EQ',
-    'MINUS_EQ',
-    'MUL_EQ',
-    'DIV_EQ',
-    'MOD_EQ',
-    'EXP_EQ',
+             'PLUS_EQ',
+             'MINUS_EQ',
+             'MUL_EQ',
+             'DIV_EQ',
+             'MOD_EQ',
+             'EXP_EQ',
 
 
-    'TRUE',
-    'FALSE',
+             'TRUE',
+             'FALSE',
 
-    'EQ',
-    'NEQ',
-    'GT',
-    'GTE',
-    'LT',
-    'LTE',
+             'EQ',
+             'NEQ',
+             'GT',
+             'GTE',
+             'LT',
+             'LTE',
 
-    'ARROW_LTR',
-    'ARROW_RTL'
+             'ARROW_LTR',
+             'ARROW_RTL'
 
-] + list(reserved.values())
-
+         ] + list(reserved.values())
 
 t_COMMA = ','
 t_PLUS = r'\+'
@@ -109,15 +108,18 @@ def t_NEWLINE(t):
     t.lexer.linepos = 0
     pass
 
+
 def t_TRUE(t):
     'true'
     t.value = True
     return t
 
+
 def t_FALSE(t):
     'false'
     t.value = False
     return t
+
 
 def t_IDENTIFIER(t):
     r'[\$_a-zA-Z]\w*'
@@ -126,15 +128,18 @@ def t_IDENTIFIER(t):
 
     return t
 
+
 def t_NUM_FLOAT(t):
     r'\d*\.\d+'
     t.value = float(t.value)
     return t
 
+
 def t_NUM_INT(t):
     r'\d+'
     t.value = int(t.value)
     return t
+
 
 def t_STRING(t):
     r'"(?:\\"|.)*?"'
