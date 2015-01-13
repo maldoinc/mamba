@@ -109,6 +109,17 @@ class BaseExpression:
         raise NotImplementedError()
 
 
+def full_eval(expr: BaseExpression):
+    '''
+    Fully evaluates the passex expression returning it's value
+    '''
+
+    while isinstance(expr, BaseExpression):
+        expr = expr.eval()
+
+    return expr
+
+
 class Primitive(BaseExpression):
     def __init__(self, value):
         self.value = value
@@ -302,11 +313,7 @@ class ReturnStatement(ExitStatement):
         return '<Return expr={0}>'.format(self.expr)
 
     def eval(self):
-        ret = self.expr
-        while isinstance(ret, BaseExpression):
-            ret = ret.eval()
-
-        return ret
+        return full_eval(self.expr)
 
 
 class PrintStatement(BaseExpression):
@@ -333,10 +340,7 @@ class FunctionCall(BaseExpression):
         args = []
 
         for p in self.params.children:
-            while isinstance(p, BaseExpression):
-                p = p.eval()
-
-            args.append(p)
+            args.append(full_eval(p))
 
         return func.eval(args)
 
@@ -349,10 +353,7 @@ class FunctionCall(BaseExpression):
         #
         # On the parameters we only need the name rather than fully evaluating them
         for p, v in zip(func.params.children, self.params.children):
-            while isinstance(v, BaseExpression):
-                v = v.eval()
-
-            args[p.name] = v
+            args[p.name] = full_eval(v)
 
         return func.eval(args)
 
