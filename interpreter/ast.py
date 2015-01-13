@@ -2,6 +2,8 @@ import operator
 from interpreter.exceptions import *
 import interpreter.symbol_table
 
+symbols = interpreter.symbol_table.SymbolTable()
+
 
 class InstructionList:
     def __init__(self, children=None):
@@ -33,12 +35,29 @@ class InstructionList:
 
         return ret
 
-symbols = interpreter.symbol_table.SymbolTable()
-
 
 class BaseExpression:
     def eval(self):
         raise NotImplementedError()
+
+
+class ExitStatement(BaseExpression):
+    def __iter__(self):
+        return []
+
+    def eval(self):
+        pass
+
+
+class ReturnStatement(ExitStatement):
+    def __init__(self, expr: BaseExpression):
+        self.expr = expr
+
+    def __repr__(self):
+        return '<Return expr={0}>'.format(self.expr)
+
+    def eval(self):
+        return full_eval(self.expr)
 
 
 def full_eval(expr: BaseExpression):
@@ -227,25 +246,6 @@ class While(BaseExpression):
         while self.condition.eval():
             if isinstance(self.body.eval(), ExitStatement):
                 break
-
-
-class ExitStatement(BaseExpression):
-    def __iter__(self):
-        return []
-
-    def eval(self):
-        pass
-
-
-class ReturnStatement(ExitStatement):
-    def __init__(self, expr: BaseExpression):
-        self.expr = expr
-
-    def __repr__(self):
-        return '<Return expr={0}>'.format(self.expr)
-
-    def eval(self):
-        return full_eval(self.expr)
 
 
 class PrintStatement(BaseExpression):
