@@ -20,3 +20,7 @@ class ParserSyntaxError(InterpreterException):
 
 class DuplicateSymbol(InterpreterException):
     pass
+
+
+class InterpreterRuntimeError(InterpreterException):
+    pass

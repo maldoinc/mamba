@@ -148,7 +148,14 @@ class BinaryOperation(BaseExpression):
         self.op = op
 
     def eval(self):
-        return self.__operations[self.op](self.left.eval(), self.right.eval())
+        left = self.left.eval()
+        right = self.right.eval()
+
+        try:
+            return self.__operations[self.op](left, right)
+        except TypeError:
+            fmt = (left.__class__.__name__, left, self.op, right.__class__.__name__, right)
+            raise InterpreterRuntimeError("Unable to apply operation (%s: %s) %s (%s: %s)" % fmt)
 
 
 class CompoundOperation(BaseExpression):
@@ -174,7 +181,11 @@ class CompoundOperation(BaseExpression):
         l = self.identifier.eval()
         r = self.modifier.eval()
 
-        self.identifier.assign(self.__operations[self.operation](l, r))
+        try:
+            self.identifier.assign(self.__operations[self.operation](l, r))
+        except TypeError:
+            fmt = (l.__class__.__name__, l, self.operation, r.__class__.__name__, r)
+            raise InterpreterRuntimeError("Unable to apply operation (%s: %s) %s (%s: %s)" % fmt)
 
 
 class UnaryOperation(BaseExpression):
