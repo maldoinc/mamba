@@ -1,4 +1,6 @@
+import interpreter
 import interpreter.ast as ast
+import interpreter.symbol_table
 import math
 import time
 
@@ -15,7 +17,7 @@ def str_format(string, *args):
     return string % tuple(args)
 
 
-def declare_env(s: ast.SymbolTable):
+def declare_env(s: interpreter.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
 
     # "constants"
