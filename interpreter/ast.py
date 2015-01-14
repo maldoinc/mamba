@@ -85,6 +85,28 @@ class Primitive(BaseExpression):
         return self.value
 
 
+class Identifier(BaseExpression):
+    is_function = False
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<Identifier: {0}>'.format(self.name)
+
+    def assign(self, val):
+        if self.is_function:
+            symbols.setfunc(self.name, val)
+        else:
+            symbols.setsym(self.name, val)
+
+    def eval(self):
+        if self.is_function:
+            return symbols.getfunc(self.name)
+
+        return symbols.getsym(self.name)
+
+
 class Array(BaseExpression):
     def __init__(self, values: InstructionList):
         self.values = values
@@ -113,28 +135,6 @@ class ArrayAssign(BaseExpression):
 
     def eval(self):
         self.array.eval()[self.index.eval()] = self.value.eval()
-
-
-class Identifier(BaseExpression):
-    is_function = False
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return '<Identifier: {0}>'.format(self.name)
-
-    def assign(self, val):
-        if self.is_function:
-            symbols.setfunc(self.name, val)
-        else:
-            symbols.setsym(self.name, val)
-
-    def eval(self):
-        if self.is_function:
-            return symbols.getfunc(self.name)
-
-        return symbols.getsym(self.name)
 
 
 class Assignment(BaseExpression):
