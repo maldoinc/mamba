@@ -192,6 +192,12 @@ class BinaryOperation(BaseExpression):
 
         'and': operator.and_,
         'or': operator.or_,
+
+        '&': operator.and_,
+        '|': operator.or_,
+        '^': operator.xor,
+        '>>': operator.rshift,
+        '<<': operator.lshift,
     }
 
     def __repr__(self):
@@ -247,6 +253,7 @@ class UnaryOperation(BaseExpression):
     __operations = {
         '+': operator.pos,
         '-': operator.neg,
+        '~': operator.inv,
         'not': operator.not_
     }
 

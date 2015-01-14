@@ -75,6 +75,20 @@ def p_boolean_operators(p):
             | expression LTE expression
             | expression AND expression
             | expression OR expression
+
+            | expression PLUS expression
+            | expression MINUS expression
+            | expression MUL expression
+            | expression DIV expression
+            | expression EXP expression
+            | expression MOD expression
+
+
+            | expression BIT_AND expression
+            | expression BIT_OR expression
+            | expression BIT_XOR expression
+            | expression LSHIFT expression
+            | expression RSHIFT expression
     '''
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
@@ -83,6 +97,7 @@ def p_unary_operation(p):
     '''
     expression : MINUS expression %prec UMINUS
                | PLUS expression %prec UPLUS
+               | BIT_NEG expression
                | NOT expression
     '''
     p[0] = ast.UnaryOperation(p[1], p[2])
@@ -206,18 +221,6 @@ def p_print_statement(p):
     statement : PRINT arguments STMT_END
     '''
     p[0] = ast.PrintStatement(p[2])
-
-
-def p_arithmetic_op(p):
-    '''
-    expression : expression PLUS expression
-               | expression MINUS expression
-               | expression MUL expression
-               | expression DIV expression
-               | expression EXP expression
-               | expression MOD expression
-    '''
-    p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
 
 def p_compound_operations(p):

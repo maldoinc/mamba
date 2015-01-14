@@ -45,6 +45,13 @@ tokens = [
     'DIV',
     'MOD',
 
+    'LSHIFT',
+    'RSHIFT',
+    'BIT_AND',
+    'BIT_OR',
+    'BIT_XOR',
+    'BIT_NEG',
+
     'DOUBLE_PLUS',
     'DOUBLE_MINUS',
 
@@ -102,6 +109,13 @@ t_MUL_EQ = r'\*='
 t_DIV_EQ = r'/='
 t_MOD_EQ = '%='
 t_EXP_EQ = '\*\*='
+
+t_RSHIFT = '>>'
+t_LSHIFT = '<<'
+t_BIT_AND = r'\&'
+t_BIT_OR = r'\|'
+t_BIT_XOR = r'\^'
+t_BIT_NEG = r'~'
 
 t_DOUBLE_PLUS = r'\+\+'
 t_DOUBLE_MINUS = '--'
