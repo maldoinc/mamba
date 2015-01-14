@@ -96,6 +96,25 @@ class Array(BaseExpression):
         return self.values.eval()
 
 
+class ArrayAccess(BaseExpression):
+    def __init__(self, array: Identifier, index: BaseExpression):
+        self.array = array
+        self.index = index
+
+    def eval(self):
+        return self.array.eval()[self.index.eval()]
+
+
+class ArrayAssign(BaseExpression):
+    def __init__(self, array: Identifier, index: BaseExpression, value: BaseExpression):
+        self.array = array
+        self.index = index
+        self.value = value
+
+    def eval(self):
+        self.array.eval()[self.index.eval()] = self.value.eval()
+
+
 class Identifier(BaseExpression):
     is_function = False
 

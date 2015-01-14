@@ -133,6 +133,20 @@ def p_arrays(p):
     p[0] = ast.Array(p[2])
 
 
+def p_array_access(p):
+    '''
+    expression : identifier LSQBRACK expression RSQBRACK
+    '''
+    p[0] = ast.ArrayAccess(p[1], p[3])
+
+
+def p_array_access_assign(p):
+    '''
+    statement : identifier LSQBRACK expression RSQBRACK EQUALS expression STMT_END
+    '''
+    p[0] = ast.ArrayAssign(p[1], p[3], p[6])
+
+
 def p_assign(p):
     '''
     expression : identifier EQUALS assignable STMT_END
