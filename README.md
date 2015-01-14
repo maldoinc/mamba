@@ -65,6 +65,12 @@ $(name) supports two kind of loops, `for` and `while`
     for variable in low -> high {
         < statements >
     }
+    
+down to loops are constructed as
+
+    for variable in high <- low {
+        < statements >
+    }
 
 nb: loop indexes are inclusive
 
