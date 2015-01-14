@@ -117,6 +117,7 @@ add spaces nor newlines after printing.
 
 #### 2. Functions
 
+* `ask(prompt)` *shows the prompt and returns the result as a string*
 * `int(x)` 
 * `float(x)`
 * `round(value, precision)`

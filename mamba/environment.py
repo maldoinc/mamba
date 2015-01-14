@@ -78,7 +78,6 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     s.setfunc('ord', f(ord))
     s.setfunc('time', f(time.time))
 
-
     # arrays
     s.setfunc('array_insert', f(array_insert))
     s.setfunc('array_pop', f(array_pop))
@@ -86,3 +85,6 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     s.setfunc('array_remove', f(array_remove))
     s.setfunc('array_reverse', f(array_reverse))
     s.setfunc('array_sort', f(array_sort))
+
+    # input
+    s.setfunc('ask', f(input))
