@@ -21,52 +21,53 @@ reserved = {
 }
 
 tokens = [
-             'KEYWORD',
-             'STMT_END',
-             'EQUALS',
-             'IDENTIFIER',
-             'NUM_INT',
-             'NUM_FLOAT',
-             'LPAREN',
-             'RPAREN',
-             'LBRACK',
-             'RBRACK',
-             'COMMA',
-             'STRING',
-             'NEWLINE',
+    'KEYWORD',
+    'STMT_END',
+    'EQUALS',
+    'IDENTIFIER',
+    'NUM_INT',
+    'NUM_FLOAT',
+    'LPAREN',
+    'RPAREN',
+    'LBRACK',
+    'RBRACK',
+    'COMMA',
+    'STRING',
+    'NEWLINE',
+    'LSQBRACK',
+    'RSQBRACK',
 
-             'PLUS',
-             'EXP',
-             'MINUS',
-             'MUL',
-             'DIV',
-             'MOD',
+    'PLUS',
+    'EXP',
+    'MINUS',
+    'MUL',
+    'DIV',
+    'MOD',
 
-             'DOUBLE_PLUS',
-             'DOUBLE_MINUS',
+    'DOUBLE_PLUS',
+    'DOUBLE_MINUS',
 
-             'PLUS_EQ',
-             'MINUS_EQ',
-             'MUL_EQ',
-             'DIV_EQ',
-             'MOD_EQ',
-             'EXP_EQ',
+    'PLUS_EQ',
+    'MINUS_EQ',
+    'MUL_EQ',
+    'DIV_EQ',
+    'MOD_EQ',
+    'EXP_EQ',
 
 
-             'TRUE',
-             'FALSE',
+    'TRUE',
+    'FALSE',
 
-             'EQ',
-             'NEQ',
-             'GT',
-             'GTE',
-             'LT',
-             'LTE',
+    'EQ',
+    'NEQ',
+    'GT',
+    'GTE',
+    'LT',
+    'LTE',
 
-             'ARROW_LTR',
-             'ARROW_RTL'
-
-         ] + list(reserved.values())
+    'ARROW_LTR',
+    'ARROW_RTL'
+] + list(reserved.values())
 
 t_COMMA = ','
 t_PLUS = r'\+'
@@ -82,6 +83,8 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACK = '{'
 t_RBRACK = '}'
+t_LSQBRACK = r'\['
+t_RSQBRACK = r'\]'
 t_EQ = '=='
 t_NEQ = '!='
 t_GT = '>'

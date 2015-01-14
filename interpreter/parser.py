@@ -126,6 +126,13 @@ def p_comma_separated_expr(p):
         p[0] = p[1]
 
 
+def p_arrays(p):
+    '''
+    expression : LSQBRACK arguments RSQBRACK
+    '''
+    p[0] = ast.Array(p[2])
+
+
 def p_assign(p):
     '''
     expression : identifier EQUALS assignable STMT_END

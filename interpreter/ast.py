@@ -85,6 +85,17 @@ class Primitive(BaseExpression):
         return self.value
 
 
+class Array(BaseExpression):
+    def __init__(self, values: InstructionList):
+        self.values = values
+
+    def __repr__(self):
+        return '<Array len: {0} [{1}]>'.format(len(self.values.children), self.values)
+
+    def eval(self):
+        return self.values.eval()
+
+
 class Identifier(BaseExpression):
     is_function = False
 

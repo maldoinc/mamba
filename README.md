@@ -14,12 +14,11 @@ $(name) is a simple dynamic typed, (turing complete :: todo) programming languag
 * Float
 * String
 * Boolean
+* Arrays
 
 ### TODO ###
-* Arrays
 * Modules
 * stdin
-*
 
 
 ### Language description ###
@@ -82,6 +81,11 @@ which acts as an infinite loop (which internally is expressed as a `while true {
 All loops can be prematurely exited via the `exit` statement when necessary
 
 
+### Arrays ###
+
+Arrays have dynamic length and can be declared via the  `[ ... ]` expression
+
+
 ### Printing ###
 
 Printing is supported via the `say` keyword which accepts a list of values to print. Note that `say` doesn't
@@ -117,3 +121,9 @@ add spaces nor newlines after printing.
 * `chr(x)`
 * `ord(x)`
 * `time`
+* `array_insert(array, index, value)`
+* `array_pop(array)` *returns removed value and modifies array*
+* `array_push(array, value)`
+* `array_remove(array, index)` *returns removed value and modifies array*
+* `array_reverse(array)` *reverses array without returning it*
+* `array_sort(array)` *sorts the array without returning it*

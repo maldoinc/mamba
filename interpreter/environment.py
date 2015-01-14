@@ -17,6 +17,30 @@ def str_format(string, *args):
     return string % tuple(args)
 
 
+def array_push(arr: list, value):
+    arr.append(value)
+
+
+def array_pop(arr: list):
+    return arr.pop()
+
+
+def array_insert(arr: list, i: int, x):
+    arr.insert(i, x)
+
+
+def array_remove(arr: list, i: int):
+    return arr.pop(i)
+
+
+def array_reverse(arr: list):
+    arr.reverse()
+
+
+def array_sort(arr: list):
+    arr.sort()
+
+
 def declare_env(s: interpreter.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
 
@@ -53,3 +77,12 @@ def declare_env(s: interpreter.symbol_table.SymbolTable):
     s.setfunc('chr', f(chr))
     s.setfunc('ord', f(ord))
     s.setfunc('time', f(time.time))
+
+
+    # arrays
+    s.setfunc('array_insert', f(array_insert))
+    s.setfunc('array_pop', f(array_pop))
+    s.setfunc('array_push', f(array_push))
+    s.setfunc('array_remove', f(array_remove))
+    s.setfunc('array_reverse', f(array_reverse))
+    s.setfunc('array_sort', f(array_sort))
