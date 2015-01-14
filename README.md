@@ -27,6 +27,10 @@ $(name) is a simple dynamic typed, (turing complete :: todo) programming languag
 
 variables are dynamically typed immediately declared upon use `number = 42;`
 
+### Operators ###
+
+`and` `or` `not` `+` `-` `*` `/` `**`(Power) 
+
 #### Functions ####
 
 functions are declared via the following grammar
