@@ -1,4 +1,4 @@
-from interpreter.exceptions import *
+from mamba.exceptions import *
 
 
 class SymbolTable:

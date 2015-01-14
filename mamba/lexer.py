@@ -1,5 +1,5 @@
 import ply.lex as lex
-import interpreter.exceptions
+import mamba.exceptions
 
 reserved = {
     'if': 'IF',
@@ -154,7 +154,7 @@ def t_STRING(t):
 
 
 def t_error(t):
-    raise interpreter.exceptions.UnexpectedCharacter("Unexpected character '%s' at line %d" % (t.value[0], t.lineno))
+    raise mamba.exceptions.UnexpectedCharacter("Unexpected character '%s' at line %d" % (t.value[0], t.lineno))
 
 
 lexer = lex.lex()

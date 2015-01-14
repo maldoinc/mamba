@@ -1,6 +1,6 @@
-import interpreter
-import interpreter.ast as ast
-import interpreter.symbol_table
+import mamba
+import mamba.ast as ast
+import mamba.symbol_table
 import math
 import time
 
@@ -41,7 +41,7 @@ def array_sort(arr: list):
     arr.sort()
 
 
-def declare_env(s: interpreter.symbol_table.SymbolTable):
+def declare_env(s: mamba.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
 
     # "constants"

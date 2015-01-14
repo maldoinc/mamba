@@ -1,7 +1,7 @@
-import interpreter.parser as p
-import interpreter.ast
-import interpreter.environment
-import interpreter.exceptions
+import mamba.parser as p
+import mamba.ast
+import mamba.environment
+import mamba.exceptions
 import pprint
 import sys
 
@@ -11,7 +11,7 @@ def execute(source, show_ast: bool=False, disable_warnings: bool=True):
 
     try:
         res = p.get_parser().parse(source)
-        environment.declare_env(interpreter.ast.symbols)
+        environment.declare_env(mamba.ast.symbols)
 
         for node in res.children:
             node.eval()
@@ -21,7 +21,7 @@ def execute(source, show_ast: bool=False, disable_warnings: bool=True):
 
             pp = pprint.PrettyPrinter()
             pp.pprint(res.children)
-            pp.pprint(interpreter.ast.symbols.table())
+            pp.pprint(mamba.ast.symbols.table())
     except Exception as e:
         print(e.__class__.__name__ + ': ' + str(e), file=sys.stderr)
         if not disable_warnings:

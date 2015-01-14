@@ -1,8 +1,8 @@
 import operator
-from interpreter.exceptions import *
-import interpreter.symbol_table
+from mamba.exceptions import *
+import mamba.symbol_table
 
-symbols = interpreter.symbol_table.SymbolTable()
+symbols = mamba.symbol_table.SymbolTable()
 
 
 class InstructionList:
@@ -301,6 +301,7 @@ class ForIn(BaseExpression):
             self.variable.assign(i)
             if isinstance(self.body.eval(), ExitStatement):
                 break
+
 
 class While(BaseExpression):
     def __init__(self, condition, body):

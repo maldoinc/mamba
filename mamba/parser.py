@@ -1,9 +1,9 @@
 import sys
 
 import ply.yacc as yacc
-import interpreter.ast as ast
-from interpreter.lexer import *
-from interpreter.exceptions import *
+import mamba.ast as ast
+from mamba.lexer import *
+from mamba.exceptions import *
 
 disable_warnings = False
 
