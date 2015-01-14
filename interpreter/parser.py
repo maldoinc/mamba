@@ -175,6 +175,13 @@ def p_ifstatement_else_if(p):
     p[0] = ast.If(p[2], p[4], p[7])
 
 
+def p_in_expression(p):
+    '''
+    expression : expression IN expression
+    '''
+    p[0] = ast.InExpression(p[1], p[3])
+
+
 def p_print_statement(p):
     '''
     statement : PRINT arguments STMT_END

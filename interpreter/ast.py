@@ -374,3 +374,15 @@ class BuiltInFunction(BaseExpression):
 
     def eval(self, args):
         return self.func(*args)
+
+
+class InExpression(BaseExpression):
+    def __init__(self, a: BaseExpression, b: BaseExpression):
+        self.a = a
+        self.b = b
+
+    def __repr__(self):
+        return '<In {0} in {1}>'.format(self.a, self.b)
+
+    def eval(self):
+        return self.a.eval() in self.b.eval()
