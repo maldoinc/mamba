@@ -1,5 +1,5 @@
-## $(name)
-$(name) is a simple dynamic typed, (turing complete :: todo) programming language
+## Mamba programming language
+Mamba is a simple dynamic typed, (turing complete :: todo) programming language
 
 ### Features ###
 * Variables (duh)
@@ -47,7 +47,7 @@ return value is specified with the `ret` keyword which, as expected, immediately
 
 #### Flow control ####
 
-$(name) supports `if` statements for flow control via the following syntax
+Mamba supports `if` statements for flow control via the following syntax
 
     if < expression > {
         < statements >
@@ -58,7 +58,7 @@ nb: Brackets are mandatory, while parenthesis on the expression are optional
 
 ### Loops ###
 
-$(name) supports two kind of loops, `for` and `while`
+Mamba supports two kind of loops, `for` and `while`
 
 ** for syntax **
 
