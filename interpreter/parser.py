@@ -236,7 +236,7 @@ def p_expression(p):
 def p_for_loop(p):
     '''
     statement : FOR identifier IN expression ARROW_LTR expression LBRACK statement_list RBRACK
-    statement : FOR identifier IN expression ARROW_RTL expression LBRACK statement_list RBRACK
+              | FOR identifier IN expression ARROW_RTL expression LBRACK statement_list RBRACK
     '''
     p[0] = ast.For(p[2], p[4], p[6], p[5] == '->', p[8])
 

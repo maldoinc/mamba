@@ -270,7 +270,16 @@ class For(BaseExpression):
         return '<For {0} {1} {2} >'.format(self.start, '->' if self.asc else '<-', self.end)
 
     def eval(self):
-        for i in range(self.start.eval(), 1 + self.end.eval(), 1 if self.asc else -1):
+        if self.asc:
+            lo = self.start.eval()
+            hi = self.end.eval() + 1
+            sign = 1
+        else:
+            lo = self.start.eval()
+            hi = self.end.eval() - 1
+            sign = -1
+
+        for i in range(lo, hi, sign):
             self.variable.assign(i)
 
             # in case of exit statement prematurely break the loop
