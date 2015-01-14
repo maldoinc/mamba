@@ -287,6 +287,21 @@ class For(BaseExpression):
                 break
 
 
+class ForIn(BaseExpression):
+    def __init__(self, variable: Identifier, sequence: BaseExpression, body: InstructionList):
+        self.variable = variable
+        self.sequence = sequence
+        self.body = body
+
+    def __repr__(self):
+        return '<ForIn {0} in {1} do {2}>'.format(self.variable, self.sequence, self.body)
+
+    def eval(self):
+        for i in self.sequence.eval():
+            self.variable.assign(i)
+            if isinstance(self.body.eval(), ExitStatement):
+                break
+
 class While(BaseExpression):
     def __init__(self, condition, body):
         self.condition = condition

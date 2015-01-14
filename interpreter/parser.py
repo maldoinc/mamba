@@ -241,6 +241,13 @@ def p_for_loop(p):
     p[0] = ast.For(p[2], p[4], p[6], p[5] == '->', p[8])
 
 
+def p_for_in_loop(p):
+    '''
+    statement : FOR identifier IN expression LBRACK statement_list RBRACK
+    '''
+    p[0] = ast.ForIn(p[2], p[4], p[6])
+
+
 def p_while_loop(p):
     '''
     statement : WHILE expression LBRACK statement_list RBRACK

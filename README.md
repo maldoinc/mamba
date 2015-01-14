@@ -5,7 +5,7 @@ $(name) is a simple dynamic typed, (turing complete :: todo) programming languag
 * Variables (duh)
 * Functions
 * Flow control statements
-* Loops (for, inf loop, while)
+* Loops (for in, for, inf loop, while)
 * Loop exit statement
 * Compound operators
 
@@ -61,6 +61,12 @@ nb: Brackets are mandatory, while parenthesis on the expression are optional
 $(name) supports two kind of loops, `for` and `while`
 
 ** for syntax **
+
+    for variable in sequence {
+        < statements >
+    }
+
+nb: sequence accepts arrays and strings
 
     for variable in low -> high {
         < statements >
