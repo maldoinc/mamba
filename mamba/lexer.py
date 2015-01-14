@@ -17,7 +17,7 @@ reserved = {
 
     'and': 'AND',
     'or': 'OR',
-    'not': 'NOT'
+    'not': 'NOT',
 }
 
 tokens = [
@@ -36,6 +36,7 @@ tokens = [
     'NEWLINE',
     'LSQBRACK',
     'RSQBRACK',
+    'COLON',
 
     'PLUS',
     'EXP',
@@ -79,6 +80,7 @@ t_MOD = '%'
 t_STMT_END = ';'
 t_EQUALS = '='
 t_ignore_WS = r'\s+'
+t_COLON = ':'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACK = '{'

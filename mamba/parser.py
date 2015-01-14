@@ -140,6 +140,25 @@ def p_array_access(p):
     p[0] = ast.ArrayAccess(p[1], p[3])
 
 
+def p_slice(p):
+    '''
+    expression : identifier LSQBRACK expression COLON expression RSQBRACK
+               | identifier LSQBRACK COLON expression RSQBRACK
+               | identifier LSQBRACK expression COLON RSQBRACK
+               | identifier LSQBRACK COLON RSQBRACK
+    '''
+    if len(p) == 7:
+        p[0] = ast.ArraySlice(p[1], p[3], p[5])
+    elif len(p) == 5:
+        p[0] = ast.ArraySlice(p[1])
+    elif p[3] == ':':
+        # accessing [:expr]
+        p[0] = ast.ArraySlice(p[1], end=p[4])
+    else:
+        # accessing [expr:]
+        p[0] = ast.ArraySlice(p[1], start=p[3])
+
+
 def p_array_access_assign(p):
     '''
     statement : identifier LSQBRACK expression RSQBRACK EQUALS expression STMT_END

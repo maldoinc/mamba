@@ -137,6 +137,28 @@ class ArrayAssign(BaseExpression):
         self.array.eval()[self.index.eval()] = self.value.eval()
 
 
+class ArraySlice(BaseExpression):
+    def __init__(self, array: Identifier, start: BaseExpression=None, end: BaseExpression=None):
+        self.array = array
+        self.start = start
+        self.end = end
+
+    def eval(self):
+        if self.start is not None and self.end is not None:
+            # access [start : end]
+            return self.array.eval()[self.start.eval():self.end.eval()]
+
+        elif self.start is None and self.end is not None:
+            # access [: end]
+            return self.array.eval()[:self.end.eval()]
+
+        elif self.start is not None and self.end is None:
+            # access [start :]
+            return self.array.eval()[self.start.eval():]
+        else:
+            return self.array.eval()[:]
+
+
 class Assignment(BaseExpression):
     def __init__(self, identifier: Identifier, val):
         self.identifier = identifier
