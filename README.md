@@ -8,6 +8,7 @@ Mamba is a simple dynamic typed, (turing complete :: todo) programming language
 * Loops (for in, for, inf loop, while)
 * Loop exit statement
 * Compound operators
+* Pythonic sequence (array, string) slicing 
 
 ### Data types ###
 * Integer
