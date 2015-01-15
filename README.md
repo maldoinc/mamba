@@ -1,5 +1,5 @@
 ## Mamba programming language
-Mamba is a simple dynamic typed, (turing complete :: todo) programming language
+Mamba is a simple dynamic typed, programming language
 
 ### Features ###
 * Variables (duh)
