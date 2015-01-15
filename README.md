@@ -19,7 +19,6 @@ Mamba is a simple dynamic typed, programming language
 
 ### TODO ###
 * Modules
-* stdin
 
 
 ### Language description ###
