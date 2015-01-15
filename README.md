@@ -36,6 +36,8 @@ arithmetic: `+` `-` `*` `/` `**`(Power)
 
 binary: `~` `^` `|` `&` `>>` `<<`
 
+ternary: `test ? true_value : false_value`
+
 #### Functions ####
 
 functions are declared via the following grammar

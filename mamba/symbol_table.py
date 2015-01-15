@@ -27,8 +27,6 @@ class SymbolTable:
     def get_local_table(self):
         '''
         Returns the active local symbol table (the last one on the stack)
-
-        :return:
         '''
 
         t = self.__table[self.__local]

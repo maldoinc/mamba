@@ -14,6 +14,7 @@ precedence = (
     ('left', 'EXP', 'MOD'),
     ('right', 'UMINUS'),
     ('right', 'UPLUS'),
+    ('left', 'GT', 'GTE', 'LT', 'LTE', 'EQ', 'NEQ'),
 )
 
 
@@ -140,6 +141,12 @@ def p_comma_separated_expr(p):
         p[1].children.append(p[3])
         p[0] = p[1]
 
+
+def p_ternary_op(p):
+    '''
+    expression : expression QUESTION_MARK expression COLON expression
+    '''
+    p[0] = ast.TernaryOperator(p[1], p[3], p[5])
 
 def p_arrays(p):
     '''

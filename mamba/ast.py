@@ -440,3 +440,13 @@ class InExpression(BaseExpression):
 
     def eval(self):
         return self.a.eval() in self.b.eval()
+
+
+class TernaryOperator(BaseExpression):
+    def __init__(self, cond: BaseExpression, trueval: BaseExpression, falseval: BaseExpression):
+        self.cond = cond
+        self.trueval = trueval
+        self.falseval = falseval
+
+    def eval(self):
+        return self.trueval.eval() if self.cond.eval() else self.falseval.eval()

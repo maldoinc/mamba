@@ -37,6 +37,7 @@ tokens = [
     'LSQBRACK',
     'RSQBRACK',
     'COLON',
+    'QUESTION_MARK',
 
     'PLUS',
     'EXP',
@@ -85,6 +86,7 @@ t_MUL = r'\*'
 t_DIV = r'/'
 t_MOD = '%'
 t_STMT_END = ';'
+t_QUESTION_MARK = r'\?'
 t_EQUALS = '='
 t_ignore_WS = r'\s+'
 t_COLON = ':'
