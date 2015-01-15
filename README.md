@@ -30,7 +30,7 @@ variables are dynamically typed immediately declared upon use `number = 42;`
 
 ### Operators ###
 
-logic: `and` `or` `not` `in` `>` `>=` `<` `<=` `==` `!=`
+logic: `and` `or` `not` `in` `not in` `>` `>=` `<` `<=` `==` `!=`
 
 arithmetic: `+` `-` `*` `/` `**`(Power) 
 

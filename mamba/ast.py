@@ -431,14 +431,17 @@ class BuiltInFunction(BaseExpression):
 
 
 class InExpression(BaseExpression):
-    def __init__(self, a: BaseExpression, b: BaseExpression):
+    def __init__(self, a: BaseExpression, b: BaseExpression, not_in: bool=False):
         self.a = a
         self.b = b
+        self.not_in = not_in
 
     def __repr__(self):
         return '<In {0} in {1}>'.format(self.a, self.b)
 
     def eval(self):
+        if self.not_in:
+            return self.a.eval() not in self.b.eval()
         return self.a.eval() in self.b.eval()
 
 

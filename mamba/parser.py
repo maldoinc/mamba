@@ -219,8 +219,12 @@ def p_ifstatement_else_if(p):
 def p_in_expression(p):
     '''
     expression : expression IN expression
+               | expression NOT IN expression
     '''
-    p[0] = ast.InExpression(p[1], p[3])
+    if len(p) == 4:
+        p[0] = ast.InExpression(p[1], p[3])
+    else:
+        p[0] = ast.InExpression(p[1], p[4], True)
 
 
 def p_print_statement(p):
