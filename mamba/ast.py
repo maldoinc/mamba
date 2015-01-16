@@ -112,7 +112,7 @@ class Array(BaseExpression):
         self.values = values
 
     def __repr__(self):
-        return '<Array len: {0} [{1}]>'.format(len(self.values.children), self.values)
+        return '<Array len={0} [{1}]>'.format(len(self.values.children), self.values)
 
     def eval(self):
         return self.values.eval()
@@ -122,6 +122,9 @@ class ArrayAccess(BaseExpression):
     def __init__(self, array: Identifier, index: BaseExpression):
         self.array = array
         self.index = index
+
+    def __repr__(self):
+        return '<Array index={0}>'.format(self.index)
 
     def eval(self):
         return self.array.eval()[self.index.eval()]
@@ -133,6 +136,9 @@ class ArrayAssign(BaseExpression):
         self.index = index
         self.value = value
 
+    def __repr__(self):
+        return '<Array arr={0}; index={1}; value={2}>'.format(self.array, self.index, self.value)
+
     def eval(self):
         self.array.eval()[self.index.eval()] = self.value.eval()
 
@@ -142,6 +148,9 @@ class ArraySlice(BaseExpression):
         self.array = array
         self.start = start
         self.end = end
+
+    def __repr__(self):
+        return '<ArraySlice array={0}; start={1}; end={2}>'.format(self.array, self.start, self.end)
 
     def eval(self):
         if self.start is not None and self.end is not None:
@@ -201,7 +210,7 @@ class BinaryOperation(BaseExpression):
     }
 
     def __repr__(self):
-        return '<Binary operation: left = {0}; right = {1}>'.format(self.left, self.right)
+        return '<Binary operation: left = {0}; right = {1}; operation={2}>'.format(self.left, self.right, self.op)
 
     def __init__(self, left, right, op):
         self.left = left
@@ -233,6 +242,12 @@ class CompoundOperation(BaseExpression):
         self.identifier = identifier
         self.modifier = modifier
         self.operation = operation
+
+
+    def __repr__(self):
+        return '<Compound identifier={0}; mod={1}; operation={2}>'.format(self.identifier, self.modifier,
+                                                                          self.operation)
+
 
     def eval(self):
         # Express the compound operation as a 'simplified' binary op
@@ -450,6 +465,9 @@ class TernaryOperator(BaseExpression):
         self.cond = cond
         self.trueval = trueval
         self.falseval = falseval
+
+    def __repr__(self):
+        return '<Ternary cond: {0} true:{1} false:{2}>'.format(self.cond, self.trueval, self.falseval)
 
     def eval(self):
         return self.trueval.eval() if self.cond.eval() else self.falseval.eval()
