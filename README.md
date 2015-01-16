@@ -1,6 +1,12 @@
 ## Mamba programming language
 Mamba is a simple dynamic typed, programming language
 
+### Installation requirements ###
+
+* Python3
+* ply
+
+
 ### Features ###
 * Variables (duh)
 * Functions
