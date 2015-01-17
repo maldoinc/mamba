@@ -4,11 +4,11 @@ tries = 0;
 say "Guess the number (1 - 100)\n\n";
 
 for {
-	tries++;
+	tries +=1;
 	guess = ask(format("Guess (attempt: %d): ", tries));
 	
 	if guess == num {
-		say ("You guessed right with %d attempts", tries);
+		say format("You guessed right with %d attempts", tries);
 		exit;
 	} else if guess > num {
 		say "You guessed too high";
