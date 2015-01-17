@@ -14,7 +14,6 @@ precedence = (
     ('left', 'EXP', 'MOD'),
     ('right', 'UMINUS'),
     ('right', 'UPLUS'),
-    ('left', 'GT', 'GTE', 'LT', 'LTE', 'EQ', 'NEQ'),
 )
 
 
@@ -66,6 +65,23 @@ def p_primitive(p):
         p[0] = ast.Primitive(p[1])
 
 
+def p_binary_op(p):
+    '''
+    expression : expression PLUS expression %prec PLUS
+            | expression MINUS expression %prec MINUS
+            | expression MUL expression %prec MUL
+            | expression DIV expression %prec DIV
+            | expression EXP expression %prec EXP
+            | expression MOD expression %prec MOD
+
+            | expression BIT_AND expression
+            | expression BIT_OR expression
+            | expression BIT_XOR expression
+            | expression LSHIFT expression
+            | expression RSHIFT expression
+    '''
+    p[0] = ast.BinaryOperation(p[1], p[3], p[2])
+
 def p_boolean_operators(p):
     '''
     boolean : expression EQ expression
@@ -76,20 +92,6 @@ def p_boolean_operators(p):
             | expression LTE expression
             | expression AND expression
             | expression OR expression
-
-            | expression PLUS expression
-            | expression MINUS expression
-            | expression MUL expression
-            | expression DIV expression
-            | expression EXP expression
-            | expression MOD expression
-
-
-            | expression BIT_AND expression
-            | expression BIT_OR expression
-            | expression BIT_XOR expression
-            | expression LSHIFT expression
-            | expression RSHIFT expression
     '''
     p[0] = ast.BinaryOperation(p[1], p[3], p[2])
 
