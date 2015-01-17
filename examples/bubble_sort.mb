@@ -1,0 +1,21 @@
+fn bubble_sort(a){
+    l = len(a) - 1;
+    for i in 0 -> l {
+        for j in l <- i {
+            if a[j] < a[j - 1] {
+                temp = a[j];
+                a[j] = a[j - 1];
+                a[j - 1] = temp;
+            }
+        }
+    }
+
+    ret a;
+}
+
+arr = [];
+for i in 1 -> 100 {
+    array_push(arr, randrange(1, 500));
+}
+
+say bubble_sort(arr);

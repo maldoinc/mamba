@@ -1,0 +1,19 @@
+fn fac_i(n){
+    r = 1;
+
+    for i in 1 -> n {
+        r *= i;
+    }
+
+    ret r;
+}
+
+fn fac_r(n){
+    if n == 0 {
+        ret 1;
+    }
+
+    ret n * fac_r(n - 1);
+}
+
+say fac_i(6), " ", fac_r(6);
