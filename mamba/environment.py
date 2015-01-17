@@ -3,6 +3,7 @@ import mamba.ast as ast
 import mamba.symbol_table
 import math
 import time
+import random
 
 
 def substr(s: str, start: int, length: int):
@@ -57,6 +58,8 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     s.setfunc('abs', f(abs))
     s.setfunc('log', f(math.log))
     s.setfunc('log2', f(math.log))
+    s.setfunc('rand', f(random.random))
+    s.setfunc('randrange', f(random.randrange))
 
     s.setfunc('sin', f(int))
     s.setfunc('cos', f(int))

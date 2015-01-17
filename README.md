@@ -135,6 +135,8 @@ add spaces nor newlines after printing.
 * `round(value, precision)`
 * `abs(x)`
 * `log(x)`
+* `rand`
+* `randrange(lo, hi)`
 * `sin(x)`
 * `cos(x)`
 * `tan(x)`
