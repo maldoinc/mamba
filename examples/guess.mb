@@ -5,7 +5,7 @@ say "Guess the number (1 - 100)\n\n";
 
 for {
 	tries +=1;
-	guess = ask(format("Guess (attempt: %d): ", tries));
+	guess = int(ask(format("Guess (attempt: %d): ", tries)));
 	
 	if guess == num {
 		say format("You guessed right with %d attempts", tries);
