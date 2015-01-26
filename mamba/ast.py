@@ -15,7 +15,7 @@ class InstructionList:
         return iter(self.children)
 
     def __repr__(self):
-        return '<Instruction list: {0}>'.format(self.children)
+        return '<InstructionList {0}>'.format(self.children)
 
     def eval(self):
         """
@@ -79,7 +79,7 @@ class Primitive(BaseExpression):
         self.value = value
 
     def __repr__(self):
-        return '<Primitive: "{0}"({1})>'.format(self.value, self.value.__class__)
+        return '<Primitive "{0}"({1})>'.format(self.value, self.value.__class__)
 
     def eval(self):
         return self.value
@@ -92,7 +92,7 @@ class Identifier(BaseExpression):
         self.name = name
 
     def __repr__(self):
-        return '<Identifier: {0}>'.format(self.name)
+        return '<Identifier {0}>'.format(self.name)
 
     def assign(self, val):
         if self.is_function:
@@ -112,7 +112,7 @@ class Array(BaseExpression):
         self.values = values
 
     def __repr__(self):
-        return '<Array len={0} [{1}]>'.format(len(self.values.children), self.values)
+        return '<Array len={0} items={1}>'.format(len(self.values.children), self.values)
 
     def eval(self):
         return self.values.eval()
@@ -137,7 +137,7 @@ class ArrayAssign(BaseExpression):
         self.value = value
 
     def __repr__(self):
-        return '<Array arr={0}; index={1}; value={2}>'.format(self.array, self.index, self.value)
+        return '<Array arr={0} index={1} value={2}>'.format(self.array, self.index, self.value)
 
     def eval(self):
         self.array.eval()[self.index.eval()] = self.value.eval()
@@ -150,7 +150,7 @@ class ArraySlice(BaseExpression):
         self.end = end
 
     def __repr__(self):
-        return '<ArraySlice array={0}; start={1}; end={2}>'.format(self.array, self.start, self.end)
+        return '<ArraySlice array={0} start={1} end={2}>'.format(self.array, self.start, self.end)
 
     def eval(self):
         if self.start is not None and self.end is not None:
@@ -174,7 +174,7 @@ class Assignment(BaseExpression):
         self.val = val
 
     def __repr__(self):
-        return '<Assignment: sym = {0}; val = {1}>'.format(self.identifier, self.val)
+        return '<Assignment sym={0}; val={1}>'.format(self.identifier, self.val)
 
     def eval(self):
         if self.identifier.is_function:
@@ -210,7 +210,7 @@ class BinaryOperation(BaseExpression):
     }
 
     def __repr__(self):
-        return '<Binary operation: left = {0}; right = {1}; operation={2}>'.format(self.left, self.right, self.op)
+        return '<BinaryOperation left ={0} right={1} operation="{2}">'.format(self.left, self.right, self.op)
 
     def __init__(self, left, right, op):
         self.left = left
@@ -244,8 +244,8 @@ class CompoundOperation(BaseExpression):
         self.operation = operation
 
     def __repr__(self):
-        return '<Compound identifier={0}; mod={1}; operation={2}>'.format(self.identifier, self.modifier,
-                                                                          self.operation)
+        fmt = '<Compound identifier={0} mod={1} operation={2}>'
+        return fmt.format(self.identifier, self.modifier, self.operation)
 
     def eval(self):
         # Express the compound operation as a 'simplified' binary op
@@ -288,7 +288,7 @@ class If(BaseExpression):
         self.elsepart = elsepart
 
     def __repr__(self):
-        return '<If condition={0}; then={1}>'.format(self.condition, self.truepart)
+        return '<If condition={0} then={1} else={2}>'.format(self.condition, self.truepart, self.elsepart)
 
     def eval(self):
         if self.condition.eval():
@@ -310,7 +310,7 @@ class For(BaseExpression):
 
     def __repr__(self):
         fmt = '<For start={0} direction={1} end={2} body={3}>'
-        return fmt.format(self.start, '->' if self.asc else '<-', self.end, self.body)
+        return fmt.format(self.start, 'asc' if self.asc else 'desc', self.end, self.body)
 
     def eval(self):
         if self.asc:
@@ -337,7 +337,7 @@ class ForIn(BaseExpression):
         self.body = body
 
     def __repr__(self):
-        return '<ForIn {0} in {1} do {2}>'.format(self.variable, self.sequence, self.body)
+        return '<ForIn var={0} in iterable={1} do body={2}>'.format(self.variable, self.sequence, self.body)
 
     def eval(self):
         for i in self.sequence.eval():
@@ -365,7 +365,7 @@ class PrintStatement(BaseExpression):
         self.items = items
 
     def __repr__(self):
-        return '<Print: {0}>'.format(self.items)
+        return '<Print {0}>'.format(self.items)
 
     def eval(self):
         print(*self.items.eval(), end='', sep='')
@@ -466,7 +466,7 @@ class TernaryOperator(BaseExpression):
         self.falseval = falseval
 
     def __repr__(self):
-        return '<Ternary cond: {0} true:{1} false:{2}>'.format(self.cond, self.trueval, self.falseval)
+        return '<Ternary cond={0} true={1} false={2}>'.format(self.cond, self.trueval, self.falseval)
 
     def eval(self):
         return self.trueval.eval() if self.cond.eval() else self.falseval.eval()
