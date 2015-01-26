@@ -311,7 +311,7 @@ class For(BaseExpression):
         self.body = body
 
     def __repr__(self):
-        return '<For {0} {1} {2} >'.format(self.start, '->' if self.asc else '<-', self.end)
+        return '<For start={0} direction={1} end={2} body={3}>'.format(self.start, '->' if self.asc else '<-', self.end, self.body)
 
     def eval(self):
         if self.asc:
