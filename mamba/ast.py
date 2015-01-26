@@ -18,11 +18,11 @@ class InstructionList:
         return '<Instruction list: {0}>'.format(self.children)
 
     def eval(self):
-        '''
+        """
         Evaluates all the class children and returns the result
         of their eval method in a list or returns an ExitStatement
         in case one is found
-        '''
+        """
 
         ret = []
         for n in self:
@@ -64,9 +64,9 @@ class ReturnStatement(ExitStatement):
 
 
 def full_eval(expr: BaseExpression):
-    '''
+    """
     Fully evaluates the passex expression returning it's value
-    '''
+    """
 
     while isinstance(expr, BaseExpression):
         expr = expr.eval()
@@ -243,11 +243,9 @@ class CompoundOperation(BaseExpression):
         self.modifier = modifier
         self.operation = operation
 
-
     def __repr__(self):
         return '<Compound identifier={0}; mod={1}; operation={2}>'.format(self.identifier, self.modifier,
                                                                           self.operation)
-
 
     def eval(self):
         # Express the compound operation as a 'simplified' binary op
@@ -311,7 +309,8 @@ class For(BaseExpression):
         self.body = body
 
     def __repr__(self):
-        return '<For start={0} direction={1} end={2} body={3}>'.format(self.start, '->' if self.asc else '<-', self.end, self.body)
+        fmt = '<For start={0} direction={1} end={2} body={3}>'
+        return fmt.format(self.start, '->' if self.asc else '<-', self.end, self.body)
 
     def eval(self):
         if self.asc:
