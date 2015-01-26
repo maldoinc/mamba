@@ -24,3 +24,7 @@ class DuplicateSymbol(InterpreterException):
 
 class InterpreterRuntimeError(InterpreterException):
     pass
+
+
+class InvalidParamCount(InterpreterRuntimeError):
+    pass

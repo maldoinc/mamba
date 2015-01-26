@@ -11,6 +11,9 @@ class InstructionList:
             children = []
         self.children = children
 
+    def __len__(self):
+        return len(self.children)
+
     def __iter__(self):
         return iter(self.children)
 
@@ -391,6 +394,14 @@ class FunctionCall(BaseExpression):
     def __eval_udf(self):
         func = self.name.eval()
         args = {}
+
+        # check param count
+        l1 = len(func.params)
+        l2 = len(self.params)
+
+        if l1 != l2:
+            msg = "Invalid number of arguments for function {0}. Expected {1} got {2}"
+            raise InvalidParamCount(msg.format(self.name.name, l1, l2))
 
         # pair the defined parameters in the function signature with
         # whatever is being passed on.
