@@ -5,6 +5,7 @@ Mamba is a simple dynamic typed, programming language
 
 * Python3
 * ply
+* py2exe
 
 
 ### Features ###
