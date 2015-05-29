@@ -1,4 +1,5 @@
 import operator
+from types import LambdaType
 from mamba.exceptions import *
 import mamba.symbol_table
 
@@ -202,8 +203,8 @@ class BinaryOperation(BaseExpression):
         '==': operator.eq,
         '!=': operator.ne,
 
-        'and': operator.and_,
-        'or': operator.or_,
+        'and': lambda a, b: a.eval() and b.eval(),
+        'or': lambda a, b: a.eval() or b.eval(),
 
         '&': operator.and_,
         '|': operator.or_,
@@ -221,11 +222,23 @@ class BinaryOperation(BaseExpression):
         self.op = op
 
     def eval(self):
-        left = self.left.eval()
-        right = self.right.eval()
+        left = None
+        right = None
 
         try:
-            return self.__operations[self.op](left, right)
+            # find the operation that needs to be performed
+            op = self.__operations[self.op]
+
+            # in case of lambda, pass the arguments unevaluated as they will
+            # be properly evaluated only when necessary during the lambda call.
+            if isinstance(op, LambdaType):
+                return op(self.left, self.right)
+
+            # otherwise, straight up call the operation, also save the variables
+            # in case they are to be used for the exception block
+            left = self.left.eval()
+            right = self.right.eval()
+            return op(left, right)
         except TypeError:
             fmt = (left.__class__.__name__, left, self.op, right.__class__.__name__, right)
             raise InterpreterRuntimeError("Unable to apply operation (%s: %s) %s (%s: %s)" % fmt)
