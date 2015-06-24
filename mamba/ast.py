@@ -229,8 +229,9 @@ class BinaryOperation(BaseExpression):
             # find the operation that needs to be performed
             op = self.__operations[self.op]
 
-            # in case of lambda, pass the arguments unevaluated as they will
-            # be properly evaluated only when necessary during the lambda call.
+            # The only lambda operations are logical and/or
+            # Pass the arguments unevaluated as they will be during the lambda execution
+            # This implements short circuit boolean evaluation
             if isinstance(op, LambdaType):
                 return op(self.left, self.right)
 
