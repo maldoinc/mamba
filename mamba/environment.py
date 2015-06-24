@@ -1,8 +1,8 @@
+from timeit import default_timer
 import mamba
 import mamba.ast as ast
 import mamba.symbol_table
 import math
-import time
 import random
 
 
@@ -79,7 +79,7 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     # misc
     s.setfunc('chr', f(chr))
     s.setfunc('ord', f(ord))
-    s.setfunc('time', f(time.time))
+    s.setfunc('time', f(default_timer))
 
     # arrays
     s.setfunc('array_insert', f(array_insert))
