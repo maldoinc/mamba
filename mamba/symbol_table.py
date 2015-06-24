@@ -65,6 +65,6 @@ class SymbolTable:
 
     def setfunc(self, name, val):
         if name in self.__table[self.__func]:
-            raise DuplicateSymbol("Cannot redeclare function '%s'")
+            raise DuplicateSymbol("Cannot redeclare function '%s'" % name)
 
         self.__table[self.__func][name] = val
