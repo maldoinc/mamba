@@ -311,10 +311,7 @@ class If(BaseExpression):
         if self.condition.eval():
             return self.truepart.eval()
         elif self.elsepart is not None:
-            if isinstance(self.elsepart, BaseExpression):
-                return self.elsepart.eval()
-            else:
-                return self.elsepart.eval()
+            return self.elsepart.eval()
 
 
 class For(BaseExpression):
