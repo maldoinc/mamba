@@ -1,0 +1,15 @@
+// returns the file size
+fn file_size(filename) {
+	f = file(filename, "r");
+	file_read(f)
+	
+	ret file_pos(f);
+}
+
+fn filestat(files) {
+	for file in files {
+		say format("%s is %.2fkb\n", file, file_size(file) / 1024);
+	}
+}
+
+filestat(["mamba/lexer.py", "mamba/parser.py", "mamba/ast.py"]);
