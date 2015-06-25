@@ -1,3 +1,4 @@
+import os
 from timeit import default_timer
 import mamba
 import mamba.ast as ast
@@ -57,6 +58,9 @@ def file_seek(f, offset):
 def file_pos(f):
     return f.tell()
 
+def file_exists(f):
+    return os.path.isfile(f)
+
 
 def declare_env(s: mamba.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
@@ -115,6 +119,7 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     s.setfunc('file_read', f(file_read))
     s.setfunc('file_seek', f(file_seek))
     s.setfunc('file_pos', f(file_pos))
+    s.setfunc('file_exists', f(file_exists))
 
     # input
     s.setfunc('ask', f(input))

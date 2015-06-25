@@ -165,3 +165,4 @@ add spaces nor newlines after printing.
 * `file_read(handle [,size])`
 * `file_seek(handle, position)`
 * `file_pos(handle)`
+* `file_exists(filename)`
