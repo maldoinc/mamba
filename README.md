@@ -128,7 +128,11 @@ add spaces nor newlines after printing.
 * `e`
 * `pi`
 
-#### 2. Functions
+#### 2. Globals
+
+* `argv`
+
+#### 3. Functions
 
 * `ask(prompt)` *shows the prompt and returns the result as a string*
 * `int(x [, base])` 
