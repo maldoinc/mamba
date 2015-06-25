@@ -41,6 +41,22 @@ def array_reverse(arr: list):
 def array_sort(arr: list):
     arr.sort()
 
+def file_close(f):
+    f.close()
+
+def file_write(f, data):
+    f.write(data)
+
+def file_read(f, size = None):
+    return f.read(size)
+
+def file_seek(f, offset):
+    return f.seek(offset)
+
+def file_pos(f):
+    return f.tell()
+
+
 
 def declare_env(s: mamba.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
@@ -88,6 +104,14 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     s.setfunc('array_remove', f(array_remove))
     s.setfunc('array_reverse', f(array_reverse))
     s.setfunc('array_sort', f(array_sort))
+
+    # file
+    s.setfunc('file', f(open))
+    s.setfunc('file_close', f(file_close))
+    s.setfunc('file_write', f(file_write))
+    s.setfunc('file_read', f(file_read))
+    s.setfunc('file_seek', f(file_seek))
+    s.setfunc('file_pos', f(file_pos))
 
     # input
     s.setfunc('ask', f(input))

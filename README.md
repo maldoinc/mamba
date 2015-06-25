@@ -159,3 +159,9 @@ add spaces nor newlines after printing.
 * `array_remove(array, index)` *returns removed value and modifies array*
 * `array_reverse(array)` *reverses array without returning it*
 * `array_sort(array)` *sorts the array without returning it*
+* `file(filename, mode)` *opens a file and returns the handle*
+* `file_close(handle)`
+* `file_write(handle, data)`
+* `file_read(handle [,size])`
+* `file_seek(handle, position)`
+* `file_pos(handle)`
