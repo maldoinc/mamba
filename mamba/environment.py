@@ -4,6 +4,7 @@ import mamba.ast as ast
 import mamba.symbol_table
 import math
 import random
+import sys
 
 
 def substr(s: str, start: int, length: int):
@@ -57,13 +58,15 @@ def file_pos(f):
     return f.tell()
 
 
-
 def declare_env(s: mamba.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
 
     # "constants"
     s.setsym('pi', math.pi)
     s.setsym('e', math.e)
+
+    # globals
+    s.setsym('argv', sys.argv)
 
     # Built in functions
 
