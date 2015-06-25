@@ -131,7 +131,7 @@ add spaces nor newlines after printing.
 #### 2. Functions
 
 * `ask(prompt)` *shows the prompt and returns the result as a string*
-* `int(x)` 
+* `int(x [, base])` 
 * `float(x)`
 * `round(value, precision)`
 * `abs(x)`
@@ -149,7 +149,7 @@ add spaces nor newlines after printing.
 * `upper(str)`
 * `lower(str)`
 * `replace(str, find, replace)`
-* `format(string, [ ... ])`
+* `format(string [, ... ])`
 * `chr(x)`
 * `ord(x)`
 * `time`
