@@ -39,7 +39,7 @@ class SymbolTable:
         else:
             self.__table[self.__local].pop()
 
-    def getsym(self, sym):
+    def get_sym(self, sym):
         # check the local symbol table for the variable
         if self.__is_local() and sym in self.get_local_table():
             return self.get_local_table()[sym]
@@ -51,19 +51,19 @@ class SymbolTable:
         # nope... sorry :(
         raise SymbolNotFound("Undefined variable '%s'" % sym)
 
-    def setsym(self, sym, val):
+    def set_sym(self, sym, val):
         if self.__is_local():
             self.get_local_table()[sym] = val
         else:
             self.__table[self.__sym][sym] = val
 
-    def getfunc(self, name):
+    def get_func(self, name):
         if name in self.__table[self.__func]:
             return self.__table[self.__func][name]
 
         raise SymbolNotFound("Undefined function '%s'" % name)
 
-    def setfunc(self, name, val):
+    def set_func(self, name, val):
         if name in self.__table[self.__func]:
             raise DuplicateSymbol("Cannot redeclare function '%s'" % name)
 

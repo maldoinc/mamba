@@ -66,60 +66,60 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     f = ast.BuiltInFunction
 
     # "constants"
-    s.setsym('pi', math.pi)
-    s.setsym('e', math.e)
+    s.set_sym('pi', math.pi)
+    s.set_sym('e', math.e)
 
     # globals
-    s.setsym('argv', sys.argv)
+    s.set_sym('argv', sys.argv)
 
     # Built in functions
 
     # math
-    s.setfunc('int', f(int))
-    s.setfunc('float', f(float))
-    s.setfunc('round', f(round))
-    s.setfunc('abs', f(abs))
-    s.setfunc('log', f(math.log))
-    s.setfunc('log2', f(math.log))
-    s.setfunc('rand', f(random.random))
-    s.setfunc('randrange', f(random.randrange))
+    s.set_func('int', f(int))
+    s.set_func('float', f(float))
+    s.set_func('round', f(round))
+    s.set_func('abs', f(abs))
+    s.set_func('log', f(math.log))
+    s.set_func('log2', f(math.log))
+    s.set_func('rand', f(random.random))
+    s.set_func('randrange', f(random.randrange))
 
-    s.setfunc('sin', f(int))
-    s.setfunc('cos', f(int))
-    s.setfunc('tan', f(math.tan))
-    s.setfunc('atan', f(math.atan))
+    s.set_func('sin', f(int))
+    s.set_func('cos', f(int))
+    s.set_func('tan', f(math.tan))
+    s.set_func('atan', f(math.atan))
 
     # string
-    s.setfunc('substr', f(substr))
-    s.setfunc('len', f(len))
-    s.setfunc('pos', f(str_pos))
-    s.setfunc('upper', f(str.upper))
-    s.setfunc('lower', f(str.lower))
-    s.setfunc('replace', f(str.replace))
-    s.setfunc('format', f(str_format))
-    s.setfunc('str', f(str))
+    s.set_func('substr', f(substr))
+    s.set_func('len', f(len))
+    s.set_func('pos', f(str_pos))
+    s.set_func('upper', f(str.upper))
+    s.set_func('lower', f(str.lower))
+    s.set_func('replace', f(str.replace))
+    s.set_func('format', f(str_format))
+    s.set_func('str', f(str))
 
     # misc
-    s.setfunc('chr', f(chr))
-    s.setfunc('ord', f(ord))
-    s.setfunc('time', f(default_timer))
+    s.set_func('chr', f(chr))
+    s.set_func('ord', f(ord))
+    s.set_func('time', f(default_timer))
 
     # arrays
-    s.setfunc('array_insert', f(array_insert))
-    s.setfunc('array_pop', f(array_pop))
-    s.setfunc('array_push', f(array_push))
-    s.setfunc('array_remove', f(array_remove))
-    s.setfunc('array_reverse', f(array_reverse))
-    s.setfunc('array_sort', f(array_sort))
+    s.set_func('array_insert', f(array_insert))
+    s.set_func('array_pop', f(array_pop))
+    s.set_func('array_push', f(array_push))
+    s.set_func('array_remove', f(array_remove))
+    s.set_func('array_reverse', f(array_reverse))
+    s.set_func('array_sort', f(array_sort))
 
     # file
-    s.setfunc('file', f(open))
-    s.setfunc('file_close', f(file_close))
-    s.setfunc('file_write', f(file_write))
-    s.setfunc('file_read', f(file_read))
-    s.setfunc('file_seek', f(file_seek))
-    s.setfunc('file_pos', f(file_pos))
-    s.setfunc('file_exists', f(file_exists))
+    s.set_func('file', f(open))
+    s.set_func('file_close', f(file_close))
+    s.set_func('file_write', f(file_write))
+    s.set_func('file_read', f(file_read))
+    s.set_func('file_seek', f(file_seek))
+    s.set_func('file_pos', f(file_pos))
+    s.set_func('file_exists', f(file_exists))
 
     # input
-    s.setfunc('ask', f(input))
+    s.set_func('ask', f(input))

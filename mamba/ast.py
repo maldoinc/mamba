@@ -100,15 +100,15 @@ class Identifier(BaseExpression):
 
     def assign(self, val):
         if self.is_function:
-            symbols.setfunc(self.name, val)
+            symbols.set_func(self.name, val)
         else:
-            symbols.setsym(self.name, val)
+            symbols.set_sym(self.name, val)
 
     def eval(self):
         if self.is_function:
-            return symbols.getfunc(self.name)
+            return symbols.get_func(self.name)
 
-        return symbols.getsym(self.name)
+        return symbols.get_sym(self.name)
 
 
 class Array(BaseExpression):
@@ -442,7 +442,7 @@ class Function(BaseExpression):
         symbols.set_local(True)
 
         for k, v in args.items():
-            symbols.setsym(k, v)
+            symbols.set_sym(k, v)
 
         try:
             ret = self.body.eval()
