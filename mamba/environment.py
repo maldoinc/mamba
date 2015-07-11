@@ -84,8 +84,8 @@ def declare_env(s: mamba.symbol_table.SymbolTable):
     s.set_func('rand', f(random.random))
     s.set_func('randrange', f(random.randrange))
 
-    s.set_func('sin', f(int))
-    s.set_func('cos', f(int))
+    s.set_func('sin', f(math.sin))
+    s.set_func('cos', f(math.cos))
     s.set_func('tan', f(math.tan))
     s.set_func('atan', f(math.atan))
 
