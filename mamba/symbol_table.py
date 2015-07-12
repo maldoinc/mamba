@@ -40,9 +40,11 @@ class SymbolTable:
             self.__table[self.__local].pop()
 
     def get_sym(self, sym):
-        # check the local symbol table for the variable
-        if self.__is_local() and sym in self.get_local_table():
-            return self.get_local_table()[sym]
+        if self.__is_local():
+            # Check all the local symbol tables starting from the current one
+            for tab in reversed(self.__table[self.__local]):
+                if sym in tab:
+                    return tab[sym]
 
         # if not found check the global scope
         if sym in self.__table[self.__sym]:
