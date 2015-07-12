@@ -1,5 +1,3 @@
-import sys
-
 import ply.yacc as yacc
 import mamba.ast as ast
 from mamba.lexer import *
