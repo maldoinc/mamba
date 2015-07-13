@@ -14,12 +14,8 @@ def execute(source, show_ast: bool=False, disable_warnings: bool=True):
         res = p.get_parser().parse(source)
         environment.declare_env(mamba.ast.symbols)
 
-        start = time.time()
-
         for node in res.children:
             node.eval()
-
-        print("Executed in: ", time.time() - start)
 
         if show_ast:
             print("\n\n" + '=' * 80, ' == Syntax tree ==')
